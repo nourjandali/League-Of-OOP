@@ -4,7 +4,6 @@ import com.etapa1.main.Heroes.Hero;
 import com.etapa1.main.Heroes.Pyromancer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public final class Main {
   private Main() {
@@ -23,6 +22,17 @@ public final class Main {
         heroes.add(pyromancer);
       }
     }
-    System.out.println(Arrays.toString(heroes.get(0).getPosition()));
+    for (int i = 0; i < gameInput.getRoundCount(); i++) {
+      double[] heroDamage = new double[heroes.size()];
+      // perform heroes movements and calculate the damage
+      for(int j = 0; j < heroes.size(); j++) {
+        heroes.get(j).updatePosition(gameInput.getHeroMovement(i,j));
+
+      }
+      // heroes action
+      for(int j = 0; j < heroes.size(); j++) {
+        heroes.get(j).updatePosition(gameInput.getHeroMovement(i,j));
+      }
+    }
   }
 }

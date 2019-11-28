@@ -3,8 +3,6 @@ package com.etapa1.main.Heroes;
 import java.util.ArrayList;
 
 public class Pyromancer extends Hero {
-  private int damage;
-
 
   public Pyromancer(ArrayList<Integer> position) {
     super(position);
@@ -25,12 +23,9 @@ public class Pyromancer extends Hero {
     }
   }
 
-  public void fireblast() {
-    damage = 350;
-  }
+  @Override
+  public void getTotalDamage(HeroesType enemyType, char terrainType) {
 
-  public void ignite() {
-    damage = 150;
   }
 
   public HeroesType getType() {

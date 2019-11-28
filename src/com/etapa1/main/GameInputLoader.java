@@ -20,6 +20,7 @@ public final class GameInputLoader {
     String[] mapLands = new String[0];
     HashMap<Integer, ArrayList> heroesPosition = new HashMap<>();
     ArrayList<String> heroesTypes = new ArrayList<String>();
+    ArrayList<String> heroesMovement = new ArrayList<>();
     try {
       FileSystem fs = new FileSystem(mInputPath, mOutputPath);
       N = fs.nextInt();
@@ -36,12 +37,17 @@ public final class GameInputLoader {
         positions.add(fs.nextInt());
         heroesPosition.put(i, positions);
       }
+      int roundCount = fs.nextInt();
+      for(int i = 0; i < roundCount; i++){
+        heroesMovement.add(fs.nextWord());
+      }
+
       fs.close();
 
     } catch (Exception e1) {
       e1.printStackTrace();
     }
-    return new GameInput(N, M, mapLands, heroesTypes, heroesPosition);
+    return new GameInput(N, M, mapLands, heroesTypes, heroesPosition, heroesMovement);
 
   }
 }

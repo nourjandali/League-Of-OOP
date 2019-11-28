@@ -31,7 +31,23 @@ public abstract class Hero {
     return position;
   }
 
-  public void setPosition(int[] position) {
-    this.position = position;
+  public void updatePosition(char move) {
+    switch(move) {
+      case 'U':
+        position[0]--;
+        break;
+      case 'D':
+        position[0]++;
+        break;
+      case 'L':
+        position[1]--;
+        break;
+      case 'R':
+        position[1]++;
+        break;
+      default:
+    }
   }
+  public abstract void getTotalDamage(HeroesType enemyType, char terrainType);
+
 }

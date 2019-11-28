@@ -9,7 +9,7 @@ public class GameInput {
   private final String[] mapLands;
   private ArrayList<String> heroesTypes = new ArrayList<String>();
   private HashMap<Integer, ArrayList> heroesPosition = new HashMap<>();
-
+  private ArrayList<String> heroesMovement = new ArrayList<>();
 
   public GameInput() {
     this.N = 0;
@@ -17,19 +17,19 @@ public class GameInput {
     this.mapLands = null;
   }
 
-
   public GameInput(
       final int N,
       final int M,
       final String[] mapLands,
       final ArrayList<String> heroesTypes,
-      HashMap<Integer,ArrayList> heroesPosition) {
+      HashMap<Integer, ArrayList> heroesPosition,
+      final ArrayList<String> heroesMovement) {
     this.N = N;
     this.M = M;
     this.mapLands = mapLands;
     this.heroesTypes = heroesTypes;
     this.heroesPosition = heroesPosition;
-
+    this.heroesMovement = heroesMovement;
   }
 
   public final int getN() {
@@ -50,5 +50,13 @@ public class GameInput {
 
   public ArrayList<Integer> getHeroPosition(int index) {
     return heroesPosition.get(index);
+  }
+
+  public char getHeroMovement(int round, int heroIndex) {
+    return heroesMovement.get(round).charAt(heroIndex);
+  }
+
+  public int getRoundCount() {
+    return heroesMovement.size();
   }
 }
