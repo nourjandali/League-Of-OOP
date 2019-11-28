@@ -1,9 +1,15 @@
 package com.etapa1.main;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class GameInput {
   private final int N;
   private final int M;
   private final String[] mapLands;
+  private ArrayList<String> heroesTypes = new ArrayList<String>();
+  private HashMap<Integer, ArrayList> heroesPosition = new HashMap<>();
+
 
   public GameInput() {
     this.N = 0;
@@ -11,10 +17,19 @@ public class GameInput {
     this.mapLands = null;
   }
 
-  public GameInput(final int N, final int M, final String[] mapLands) {
+
+  public GameInput(
+      final int N,
+      final int M,
+      final String[] mapLands,
+      final ArrayList<String> heroesTypes,
+      HashMap<Integer,ArrayList> heroesPosition) {
     this.N = N;
     this.M = M;
     this.mapLands = mapLands;
+    this.heroesTypes = heroesTypes;
+    this.heroesPosition = heroesPosition;
+
   }
 
   public final int getN() {
@@ -28,23 +43,12 @@ public class GameInput {
   public final String[] getMapLands() {
     return mapLands;
   }
-  //    public final List<Integer> getAssetIds() {
-  //        return mAssetOrder;
-  //    }
-  //
-  //    public final List<String> getPlayerNames() {
-  //        return mPlayersOrder;
-  //    }
-  //
-  //    public final int getRounds() {
-  //        return mRounds;
-  //    }
-  //
-  //    public final boolean isValidInput() {
-  //        boolean membersInstantiated = mAssetOrder != null && mPlayersOrder != null;
-  //        boolean membersNotEmpty = mAssetOrder.size() > 0 && mPlayersOrder.size() > 0 && mRounds
-  // > 0;
-  //
-  //        return membersInstantiated && membersNotEmpty;
-  //    }
+
+  public ArrayList<String> getHeroesTypes() {
+    return heroesTypes;
+  }
+
+  public ArrayList<Integer> getHeroPosition(int index) {
+    return heroesPosition.get(index);
+  }
 }

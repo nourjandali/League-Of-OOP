@@ -2,6 +2,9 @@ package com.etapa1.main;
 
 import fileio.FileSystem;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public final class GameInputLoader {
   private final String mInputPath;
   private final String mOutputPath;
@@ -12,14 +15,11 @@ public final class GameInputLoader {
   }
 
   public GameInput load() {
-    //        List<Integer> assetsIds = new ArrayList<>();
-    //        List<String> playerOrder = new ArrayList<>();
-    //        int rounds = 0;
-    //        int noPlayers = 0;
-    //        int noGoods = 0;
     int N = 0;
     int M = 0;
     String[] mapLands = new String[0];
+    HashMap<Integer, ArrayList> heroesPosition = new HashMap<>();
+    ArrayList<String> heroesTypes = new ArrayList<String>();
     try {
       FileSystem fs = new FileSystem(mInputPath, mOutputPath);
       N = fs.nextInt();
@@ -28,13 +28,20 @@ public final class GameInputLoader {
       for (int i = 0; i < N; i++) {
         mapLands[i] = fs.nextWord();
       }
-
+      int heroCount = fs.nextInt();
+      for(int i = 0; i<heroCount; i++) {
+        ArrayList<Integer> positions = new ArrayList<>();
+        heroesTypes.add(fs.nextWord());
+        positions.add(fs.nextInt());
+        positions.add(fs.nextInt());
+        heroesPosition.put(i, positions);
+      }
       fs.close();
 
     } catch (Exception e1) {
       e1.printStackTrace();
     }
+    return new GameInput(N, M, mapLands, heroesTypes, heroesPosition);
 
-    return new GameInput(N, M, mapLands);
   }
 }
