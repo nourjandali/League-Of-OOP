@@ -1,12 +1,12 @@
-package com.etapa1.main.Abilities;
+package Abilities;
 
-import com.etapa1.main.Heroes.HeroesType;
+import Heroes.HeroesType;
 
-public class Fireblast extends Ability {
+public class Ignite extends Ability {
   double damage;
 
-  public Fireblast(int level) {
-    this.damage = 350 + (level * 50);
+  public Ignite(int level, int round) {
+    this.damage = 150 + (level * 20) + (round * 50) + (level * 30);
     modifiers.put(HeroesType.Rogue, -0.2);
     modifiers.put(HeroesType.Knight, 0.2);
     modifiers.put(HeroesType.Pyromancer, -0.1);
@@ -17,5 +17,4 @@ public class Fireblast extends Ability {
   public double execute(HeroesType enemyType) {
     return this.damage + (this.damage * modifiers.get(enemyType));
   }
-
 }

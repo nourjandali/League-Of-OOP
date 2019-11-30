@@ -1,4 +1,4 @@
-package com.etapa1.main.Abilities;
+package Abilities;
 
 public final class AbilitiesFactory {
   private static AbilitiesFactory instance = null;

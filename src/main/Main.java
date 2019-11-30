@@ -1,8 +1,7 @@
-package com.etapa1.main;
-
-import com.etapa1.main.Heroes.Hero;
-import com.etapa1.main.Heroes.HeroesType;
-import com.etapa1.main.Heroes.Pyromancer;
+package main;
+import Heroes.Hero;
+import Heroes.HeroesType;
+import Heroes.Pyromancer;
 
 import java.util.ArrayList;
 

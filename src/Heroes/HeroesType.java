@@ -1,3 +1,3 @@
-package com.etapa1.main.Heroes;
+package Heroes;
 
 public enum HeroesType { Knight, Pyromancer, Rogue, Wizard }

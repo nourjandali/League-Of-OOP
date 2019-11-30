@@ -1,6 +1,6 @@
-package com.etapa1.main.Abilities;
+package Abilities;
 
-import com.etapa1.main.Heroes.HeroesType;
+import Heroes.HeroesType;
 
 import java.util.HashMap;
 

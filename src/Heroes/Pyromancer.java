@@ -1,6 +1,6 @@
-package com.etapa1.main.Heroes;
+package Heroes;
 
-import com.etapa1.main.Abilities.AbilitiesFactory;
+import Abilities.AbilitiesFactory;
 
 import java.util.ArrayList;
 

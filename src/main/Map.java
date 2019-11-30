@@ -1,4 +1,4 @@
-package com.etapa1.main;
+package main;
 
 public class Map {
     private char[][] map;
