@@ -17,9 +17,4 @@ public class Ignite extends Ability {
   public double execute(HeroesType enemyType) {
     return this.damage + (this.damage * modifiers.get(enemyType));
   }
-
-  @Override
-  public double executeWithoutModifier() {
-    return this.damage;
-  }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // Note : Heroes may kill each other. In this case, both will receive the appropriate XP.
 public abstract class Hero {
   protected int initHP;
-  protected int HP;
+  protected double HP;
   protected int XP;
   protected int level;
   protected HeroesType type;
@@ -48,6 +48,24 @@ public abstract class Hero {
       default:
     }
   }
-  public abstract void getTotalDamage(HeroesType enemyType, char terrainType);
+  public abstract double getTotalDamage(HeroesType enemyType, char terrainType, int round);
 
+  public HeroesType getType() {
+    return type;
+  }
+
+  public double getHP() {
+    return HP;
+  }
+
+  public void takeDamage(double damage) {
+    double currentHP = this.HP;
+    currentHP -= damage;
+    if(currentHP < 0){
+      this.HP = 0;
+    }
+    else {
+      this.HP = currentHP;
+    }
+  }
 }

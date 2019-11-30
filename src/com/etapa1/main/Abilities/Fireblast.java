@@ -18,8 +18,4 @@ public class Fireblast extends Ability {
     return this.damage + (this.damage * modifiers.get(enemyType));
   }
 
-  @Override
-  public double executeWithoutModifier() {
-    return this.damage;
-  }
 }

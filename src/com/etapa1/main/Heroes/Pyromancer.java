@@ -1,5 +1,7 @@
 package com.etapa1.main.Heroes;
 
+import com.etapa1.main.Abilities.AbilitiesFactory;
+
 import java.util.ArrayList;
 
 public class Pyromancer extends Hero {
@@ -7,6 +9,7 @@ public class Pyromancer extends Hero {
   public Pyromancer(ArrayList<Integer> position) {
     super(position);
     this.initHP = 500;
+    this.HP = this.initHP;
     type = HeroesType.Pyromancer;
   }
 
@@ -24,8 +27,16 @@ public class Pyromancer extends Hero {
   }
 
   @Override
-  public void getTotalDamage(HeroesType enemyType, char terrainType) {
-
+  public double getTotalDamage(HeroesType enemyType, char terrainType, int round) {
+    AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
+    double fireblastDamage =
+        abilitiesFactory.createAbility("Fireblast", this.level, round).execute(enemyType);
+    double igniteDamage = abilitiesFactory.createAbility("Ignite", this.level, round).execute(enemyType);
+    double totalDamage = fireblastDamage + igniteDamage;
+    if(terrainType == 'V') {
+      totalDamage *= 1.25;
+    }
+    return totalDamage;
   }
 
   public HeroesType getType() {
