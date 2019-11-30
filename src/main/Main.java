@@ -16,8 +16,9 @@ public final class Main {
   private static boolean isSamePosition(int[] pos1, int[] pos2) {
     return pos1[0] == pos2[0] && pos1[1] == pos2[1];
   }
-  private static char getTypeChar(HeroesType type){
-    switch (type){
+
+  private static char getTypeChar(HeroesType type) {
+    switch (type) {
       case Pyromancer:
         return 'P';
       case Rogue:
@@ -52,29 +53,49 @@ public final class Main {
       // Calculate damage and perform heroes action
       for (int j = 0; j < heroes.size(); j++) {
         Hero currentHero = heroes.get(j);
+        if(currentHero.isDead()){
+          continue;
+        }
         int[] heroPosition = currentHero.getPosition();
         char terrainType = map.getLand(heroPosition[0], heroPosition[1]);
         for (int k = 0; k < heroes.size(); k++) {
-          // Skip same hero
-          if (j == k) {
+          Hero enemyHero = heroes.get(k);
+          // Skip same hero or is dead
+          if (j == k || enemyHero.isDead()) {
             continue;
           }
-          Hero enemyHero = heroes.get(k);
           int[] enemyPosition = enemyHero.getPosition();
           // Else fight other heroes if same place
           if (isSamePosition(heroPosition, enemyPosition)) {
             HeroesType enemyType = enemyHero.getType();
             double damageDone = currentHero.getTotalDamage(enemyType, terrainType, i);
             enemyHero.takeDamage(damageDone);
+            if (enemyHero.getHP() == 0) {
+              currentHero.win(enemyHero.getLevel());
+            }
           }
         }
+      }
+      // Perform further checks on all heroes
+      for (int j = 0; j < heroes.size(); j++) {
+        Hero currentHero = heroes.get(i);
+        // Check if dead
+        if(currentHero.getHP() == 0){
+          currentHero.setDead(true);
+        }
+        // Level up hero if exceeded the threshold
+        heroes.get(j).levelUp();
+
       }
     }
     FileSystem fs = gameLoader.getFs();
     for (int i = 0; i < heroes.size(); i++) {
       Hero currentHero = heroes.get(i);
+      System.out.println(currentHero.getHP());
+      System.out.println(currentHero.getLevel());
+      System.out.println("-------------------------");
       char heroChar = getTypeChar(currentHero.getType());
-      if(currentHero.getHP() == 0){
+      if (currentHero.getHP() == 0) {
         fs.writeCharacter(heroChar);
         fs.writeCharacter(' ');
         fs.writeWord("dead");

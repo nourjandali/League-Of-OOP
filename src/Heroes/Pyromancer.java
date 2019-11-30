@@ -14,9 +14,7 @@ public class Pyromancer extends Hero {
   }
 
   @Override
-  public void win(int loserLevel) {
-    super.win(loserLevel);
-    // In case of leveling up
+  public void levelUp() {
     if (this.XP > getThreshold()) {
       this.level++;
       this.XP -= getThreshold();
@@ -31,9 +29,10 @@ public class Pyromancer extends Hero {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     double fireblastDamage =
         abilitiesFactory.createAbility("Fireblast", this.level, round).execute(enemyType);
-    double igniteDamage = abilitiesFactory.createAbility("Ignite", this.level, round).execute(enemyType);
+    double igniteDamage =
+        abilitiesFactory.createAbility("Ignite", this.level, round).execute(enemyType);
     double totalDamage = fireblastDamage + igniteDamage;
-    if(terrainType == 'V') {
+    if (terrainType == 'V') {
       totalDamage *= 1.25;
     }
     return totalDamage;
