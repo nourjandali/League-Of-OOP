@@ -2,14 +2,16 @@ package main;
 
 import fileio.FileSystem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public final class GameInputLoader {
+public final class GameLoader {
   private final String mInputPath;
   private final String mOutputPath;
+  private FileSystem fs = null;
 
-  GameInputLoader(final String inputPath, final String outputPath) {
+  GameLoader(final String inputPath, final String outputPath) {
     mInputPath = inputPath;
     mOutputPath = outputPath;
   }
@@ -22,7 +24,7 @@ public final class GameInputLoader {
     ArrayList<String> heroesTypes = new ArrayList<String>();
     ArrayList<String> heroesMovement = new ArrayList<>();
     try {
-      FileSystem fs = new FileSystem(mInputPath, mOutputPath);
+      this.fs = new FileSystem(mInputPath, mOutputPath);
       N = fs.nextInt();
       M = fs.nextInt();
       mapLands = new String[N];
@@ -42,12 +44,21 @@ public final class GameInputLoader {
         heroesMovement.add(fs.nextWord());
       }
 
-      fs.close();
+//      fs.close();
 
     } catch (Exception e1) {
       e1.printStackTrace();
     }
     return new GameInput(N, M, mapLands, heroesTypes, heroesPosition, heroesMovement);
-
+  }
+  public FileSystem getFs() {
+    return fs;
+  }
+  public void closeFile() {
+    try {
+      this.fs.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

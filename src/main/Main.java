@@ -1,20 +1,38 @@
 package main;
+
 import Heroes.Hero;
 import Heroes.HeroesType;
 import Heroes.Pyromancer;
+import fileio.FileSystem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public final class Main {
   private Main() {
     // just to trick checkstyle
   }
-  private static boolean isSamePosition(int[]pos1, int[]pos2){
+
+  private static boolean isSamePosition(int[] pos1, int[] pos2) {
     return pos1[0] == pos2[0] && pos1[1] == pos2[1];
   }
-  public static void main(final String[] args) {
-    GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
-    GameInput gameInput = gameInputLoader.load();
+  private static char getTypeChar(HeroesType type){
+    switch (type){
+      case Pyromancer:
+        return 'P';
+      case Rogue:
+        return 'R';
+      case Knight:
+        return 'K';
+      case Wizard:
+        return 'W';
+    }
+    return 0;
+  }
+
+  public static void main(final String[] args) throws IOException {
+    GameLoader gameLoader = new GameLoader(args[0], args[1]);
+    GameInput gameInput = gameLoader.load();
     Map map = new Map(gameInput.getN(), gameInput.getM(), gameInput.getMapLands());
     ArrayList<Hero> heroes = new ArrayList<>();
     ArrayList<String> heroesTypes = gameInput.getHeroesTypes();
@@ -36,15 +54,15 @@ public final class Main {
         Hero currentHero = heroes.get(j);
         int[] heroPosition = currentHero.getPosition();
         char terrainType = map.getLand(heroPosition[0], heroPosition[1]);
-        for(int k = 0; k < heroes.size(); k++){
+        for (int k = 0; k < heroes.size(); k++) {
           // Skip same hero
           if (j == k) {
             continue;
-            }
+          }
           Hero enemyHero = heroes.get(k);
           int[] enemyPosition = enemyHero.getPosition();
           // Else fight other heroes if same place
-          if(isSamePosition(heroPosition, enemyPosition)) {
+          if (isSamePosition(heroPosition, enemyPosition)) {
             HeroesType enemyType = enemyHero.getType();
             double damageDone = currentHero.getTotalDamage(enemyType, terrainType, i);
             enemyHero.takeDamage(damageDone);
@@ -52,8 +70,17 @@ public final class Main {
         }
       }
     }
+    FileSystem fs = gameLoader.getFs();
     for (int i = 0; i < heroes.size(); i++) {
-
+      Hero currentHero = heroes.get(i);
+      char heroChar = getTypeChar(currentHero.getType());
+      if(currentHero.getHP() == 0){
+        fs.writeCharacter(heroChar);
+        fs.writeCharacter(' ');
+        fs.writeWord("dead");
+        fs.writeNewLine();
+      }
     }
+    gameLoader.closeFile();
   }
 }
