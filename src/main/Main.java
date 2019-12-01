@@ -1,9 +1,6 @@
 package main;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
-import Heroes.Knight;
-import Heroes.Pyromancer;
+import Heroes.*;
 import fileio.FileSystem;
 
 import java.io.IOException;
@@ -46,6 +43,9 @@ public final class Main {
       } else if (heroesTypes.get(i).equals("K")) {
         Knight knight = new Knight(heroPosition);
         heroes.add(knight);
+      } else if (heroesTypes.get(i).equals("R")) {
+        Rogue rogue = new Rogue(heroPosition);
+        heroes.add(rogue);
       }
     }
     // Game rounds
@@ -107,7 +107,7 @@ public final class Main {
         fs.writeCharacter(' ');
         fs.writeInt(currentHero.getXP());
         fs.writeCharacter(' ');
-        fs.writeDouble(currentHero.getHP());
+        fs.writeInt((int) currentHero.getHP());
         fs.writeCharacter(' ');
         fs.writeInt(currentHero.getPosition()[0]);
         fs.writeCharacter(' ');
