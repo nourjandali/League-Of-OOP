@@ -16,7 +16,10 @@ public final class AbilitiesFactory {
         return new Fireblast(level);
       case "Ignite":
         return new Ignite(level, round);
-
+      case "Execute":
+        return new Execute(level);
+      case "Slam":
+        return new Slam(level);
       default:
         return null;
     }

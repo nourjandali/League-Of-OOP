@@ -28,13 +28,13 @@ public class Knight extends Hero{
     @Override
     public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
         AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-        double fireblastDamage =
+        double executeDamage =
                 abilitiesFactory.createAbility("Execute", this.level, round).execute(enemyHero);
-        double igniteDamage =
+        double slamDamage =
                 abilitiesFactory.createAbility("Slam", this.level, round).execute(enemyHero);
-        double totalDamage = fireblastDamage + igniteDamage;
+        double totalDamage = executeDamage + slamDamage;
         if (terrainType == 'L') {
-            totalDamage *= 1.25;
+            totalDamage *= 1.15;
         }
         return totalDamage;
     }
