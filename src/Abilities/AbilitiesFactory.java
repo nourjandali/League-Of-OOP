@@ -20,6 +20,8 @@ public final class AbilitiesFactory {
         return new Execute(level);
       case "Slam":
         return new Slam(level);
+      case "Backstab":
+        return new Backstab(level);
       default:
         return null;
     }
