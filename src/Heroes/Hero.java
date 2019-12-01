@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // Note : Heroes may kill each other. In this case, both will receive the appropriate XP.
 public abstract class Hero {
   protected int initHP;
-  protected double HP;
+  protected int HP;
   protected int XP;
   protected int level;
   private boolean isDead;
@@ -69,7 +69,7 @@ public abstract class Hero {
     return type;
   }
 
-  public double getHP() {
+  public int getHP() {
     return HP;
   }
 
@@ -81,8 +81,8 @@ public abstract class Hero {
     return initHP;
   }
 
-  public void takeDamage(double damage) {
-    double currentHP = this.HP;
+  public void takeDamage(long damage) {
+    int currentHP = this.HP;
     currentHP -= damage;
     if (currentHP < 0) {
       this.HP = 0;

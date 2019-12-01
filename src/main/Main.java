@@ -76,7 +76,7 @@ public final class Main {
           // Else fight other heroes if same place
           if (isSamePosition(heroPosition, enemyPosition)) {
             double damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
-            enemyHero.takeDamage(damageDone);
+            enemyHero.takeDamage(Math.round(damageDone));
             if (enemyHero.getHP() == 0) {
               currentHero.win(enemyHero.getLevel());
             }
@@ -93,13 +93,14 @@ public final class Main {
         // Level up hero if exceeded the threshold
         heroes.get(j).levelUp();
       }
+
     }
     FileSystem fs = gameLoader.getFs();
     for (int i = 0; i < heroes.size(); i++) {
       Hero currentHero = heroes.get(i);
-      System.out.println(currentHero.getHP());
-      System.out.println(currentHero.getLevel());
-      System.out.println("-------------------------");
+//      System.out.println(currentHero.getHP());
+//      System.out.println(currentHero.getLevel());
+//      System.out.println("-------------------------");
       char heroChar = getTypeChar(currentHero.getType());
       fs.writeCharacter(heroChar);
       fs.writeCharacter(' ');
@@ -110,7 +111,7 @@ public final class Main {
         fs.writeCharacter(' ');
         fs.writeInt(currentHero.getXP());
         fs.writeCharacter(' ');
-        fs.writeInt((int) currentHero.getHP());
+        fs.writeInt(currentHero.getHP());
         fs.writeCharacter(' ');
         fs.writeInt(currentHero.getPosition()[0]);
         fs.writeCharacter(' ');
