@@ -10,7 +10,7 @@ public final class AbilitiesFactory {
     return instance;
   }
 
-  public Ability createAbility(final String type, final int level, final int round) {
+  public Ability createAbility(final String type, final int level, final int round, char terrainType) {
     switch (type) {
       case "Fireblast":
         return new Fireblast(level);
@@ -24,6 +24,10 @@ public final class AbilitiesFactory {
         return new Backstab(level);
       case "Paralysis":
         return new Paralysis(level);
+      case "Drain":
+        return new Drain(level);
+      case "Deflect":
+        return new Deflect(level, round, terrainType);
       default:
         return null;
     }

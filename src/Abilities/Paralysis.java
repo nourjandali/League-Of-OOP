@@ -15,6 +15,11 @@ public class Paralysis extends Ability {
   }
 
   @Override
+  public double execute() {
+    return this.damage;
+  }
+
+  @Override
   public double execute(Hero enemyHero) {
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }

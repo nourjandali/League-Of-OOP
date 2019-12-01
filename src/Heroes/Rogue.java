@@ -30,11 +30,33 @@ public class Rogue extends Hero {
   public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     double backstabDamage =
-            abilitiesFactory.createAbility("Backstab", this.level, round).execute(enemyHero);
+        abilitiesFactory
+            .createAbility("Backstab", this.level, round, terrainType)
+            .execute(enemyHero);
     double paralysisDamage =
-            abilitiesFactory.createAbility("Paralysis", this.level, round).execute(enemyHero);
-    if(backstabCount % 3 == 0 && terrainType == 'W'){
-      backstabDamage += (1.5*backstabDamage);
+        abilitiesFactory
+            .createAbility("Paralysis", this.level, round, terrainType)
+            .execute(enemyHero);
+    if (backstabCount % 3 == 0 && terrainType == 'W') {
+      backstabDamage += (1.5 * backstabDamage);
+    }
+    double totalDamage = backstabDamage + paralysisDamage;
+    if (terrainType == 'W') {
+      totalDamage *= 1.15;
+    }
+    backstabCount++;
+    return totalDamage;
+  }
+
+  @Override
+  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+    AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
+    double backstabDamage =
+        abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
+    double paralysisDamage =
+        abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
+    if (backstabCount % 3 == 0 && terrainType == 'W') {
+      backstabDamage += (1.5 * backstabDamage);
     }
     double totalDamage = backstabDamage + paralysisDamage;
     if (terrainType == 'W') {
