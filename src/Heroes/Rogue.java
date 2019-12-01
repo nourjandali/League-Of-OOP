@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Rogue extends Hero {
   int backstabCount;
 
-  protected Rogue(ArrayList<Integer> position) {
+  public Rogue(ArrayList<Integer> position) {
     super(position);
     this.initHP = 600;
     this.HP = this.initHP;
@@ -31,12 +31,12 @@ public class Rogue extends Hero {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     double backstabDamage =
             abilitiesFactory.createAbility("Backstab", this.level, round).execute(enemyHero);
-    double slamDamage =
-            abilitiesFactory.createAbility("Slam", this.level, round).execute(enemyHero);
+    double paralysisDamage =
+            abilitiesFactory.createAbility("Paralysis", this.level, round).execute(enemyHero);
     if(backstabCount % 3 == 0 && terrainType == 'W'){
       backstabDamage += (1.5*backstabDamage);
     }
-    double totalDamage = backstabDamage + slamDamage;
+    double totalDamage = backstabDamage + paralysisDamage;
     if (terrainType == 'W') {
       totalDamage *= 1.15;
     }

@@ -22,6 +22,8 @@ public final class AbilitiesFactory {
         return new Slam(level);
       case "Backstab":
         return new Backstab(level);
+      case "Paralysis":
+        return new Paralysis(level);
       default:
         return null;
     }
