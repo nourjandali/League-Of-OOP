@@ -7,7 +7,8 @@ public class Ignite extends Ability {
   double damage;
 
   public Ignite(int level, int round) {
-    this.damage = 150 + (level * 20) + (round * 50) + (level * 30);
+    this.damage = 150 + (level * 20);
+//            + (round * 50) + (level * 30);
     modifiers.put(HeroesType.Rogue, -0.2);
     modifiers.put(HeroesType.Knight, 0.2);
     modifiers.put(HeroesType.Pyromancer, -0.1);
