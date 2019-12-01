@@ -67,8 +67,7 @@ public final class Main {
           int[] enemyPosition = enemyHero.getPosition();
           // Else fight other heroes if same place
           if (isSamePosition(heroPosition, enemyPosition)) {
-            HeroesType enemyType = enemyHero.getType();
-            double damageDone = currentHero.getTotalDamage(enemyType, terrainType, i);
+            double damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
             enemyHero.takeDamage(damageDone);
             if (enemyHero.getHP() == 0) {
               currentHero.win(enemyHero.getLevel());
