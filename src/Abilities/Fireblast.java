@@ -1,5 +1,6 @@
 package Abilities;
 
+import Heroes.Hero;
 import Heroes.HeroesType;
 
 public class Fireblast extends Ability {
@@ -14,8 +15,7 @@ public class Fireblast extends Ability {
   }
 
   @Override
-  public double execute(HeroesType enemyType) {
-    return this.damage + (this.damage * modifiers.get(enemyType));
+  public double execute(Hero enemyHero) {
+    return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
-
 }

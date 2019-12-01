@@ -44,7 +44,7 @@ public abstract class Hero {
   }
 
   public void updatePosition(char move) {
-    switch(move) {
+    switch (move) {
       case 'U':
         position[0]--;
         break;
@@ -60,7 +60,8 @@ public abstract class Hero {
       default:
     }
   }
-  public abstract double getTotalDamage(HeroesType enemyType, char terrainType, int round);
+
+  public abstract double getTotalDamage(Hero enemyHero, char terrainType, int round);
 
   public HeroesType getType() {
     return type;
@@ -70,13 +71,20 @@ public abstract class Hero {
     return HP;
   }
 
+  public int getXP() {
+    return XP;
+  }
+
+  public int getInitHP() {
+    return initHP;
+  }
+
   public void takeDamage(double damage) {
     double currentHP = this.HP;
     currentHP -= damage;
-    if(currentHP < 0){
+    if (currentHP < 0) {
       this.HP = 0;
-    }
-    else {
+    } else {
       this.HP = currentHP;
     }
   }
