@@ -70,6 +70,10 @@ public abstract class Hero {
     return HP;
   }
 
+  public int getInitHP() {
+    return initHP;
+  }
+
   public void takeDamage(double damage) {
     double currentHP = this.HP;
     currentHP -= damage;
