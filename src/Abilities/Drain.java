@@ -28,7 +28,7 @@ public class Drain extends Ability {
   }
 
   @Override
-  public void executeOvertimeAbility(Hero enemyHero, Hero overtimeHero) {
-
+  public float executeOvertimeAbility(Hero enemyHero) {
+    return 0;
   }
 }

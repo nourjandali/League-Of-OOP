@@ -1,6 +1,5 @@
 package main;
 
-import Abilities.Ignite;
 import Heroes.*;
 import fileio.FileSystem;
 
@@ -56,7 +55,7 @@ public final class Main {
     for (int i = 0; i < gameInput.getRoundCount(); i++) {
       // Perform heroes movements
       for (int j = 0; j < heroes.size(); j++) {
-        heroes.get(j).updateOvertime(i);
+//        heroes.get(j).updateOvertime(i);
         heroes.get(j).updatePosition(gameInput.getHeroMovement(i, j));
       }
       // Calculate damage and perform heroes action
@@ -78,9 +77,11 @@ public final class Main {
           if (isSamePosition(heroPosition, enemyPosition)) {
             int damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
             enemyHero.takeDamage(damageDone);
-            if (currentHero.getType() == HeroesType.Pyromancer) {
-              enemyHero.setOvertime(new Ignite(currentHero.getLevel(), i), i + 2, currentHero);
-            }
+//            if (currentHero.getType() == HeroesType.Pyromancer) {
+//              enemyHero.setOvertime(new Ignite(currentHero.getLevel(), i), i + 2, currentHero);
+//            }else if(currentHero.getType() == HeroesType.Rogue){
+//              enemyHero.setOvertime(new Paralysis(currentHero.getLevel()), i + 3, currentHero);
+//            }
             if (enemyHero.getHP() == 0) {
               currentHero.win(enemyHero.getLevel());
             }

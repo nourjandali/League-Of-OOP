@@ -4,7 +4,6 @@ import Abilities.Ability;
 
 import java.util.ArrayList;
 
-// Note : Heroes may kill each other. In this case, both will receive the appropriate XP.
 public abstract class Hero {
   protected int initHP;
   protected int HP;
@@ -16,6 +15,7 @@ public abstract class Hero {
   protected Ability overtimeAbility;
   private int overtimeRoundEnd;
   private Hero overtimeHero;
+  private float overtimeDamage;
 
   protected Hero(ArrayList<Integer> position) {
     this.XP = 0;
@@ -105,13 +105,14 @@ public abstract class Hero {
     this.overtimeAbility = overtimeAbility;
     this.overtimeRoundEnd = overtimeRoundEnd;
     this.overtimeHero = overtimeHero;
+    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this);
   }
 
   public void updateOvertime(int round) {
     if (round > overtimeRoundEnd) {
       overtimeRoundEnd = -1;
     } else {
-      this.overtimeAbility.executeOvertimeAbility(this, this.overtimeHero);
+      this.HP -= this.overtimeDamage;
     }
   }
 }

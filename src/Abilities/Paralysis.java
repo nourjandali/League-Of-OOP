@@ -25,7 +25,7 @@ public class Paralysis extends Ability {
   }
 
   @Override
-  public void executeOvertimeAbility(Hero enemyHero, Hero overtimeHero) {
-
+  public float executeOvertimeAbility(Hero enemyHero) {
+    return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
 }

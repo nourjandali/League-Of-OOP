@@ -25,10 +25,11 @@ public class Ignite extends Ability {
   }
 
   @Override
-  public void executeOvertimeAbility(Hero enemyHero, Hero overtimeHero) {
-    float damage = 50 + (overtimeHero.getLevel()*30);
-    float damageWithModifier = damage*modifiers.get(enemyHero.getType());
-    long totalOvertimeDamage = (long) (damage + damageWithModifier);
-    enemyHero.takeDamage(totalOvertimeDamage);
+  public float executeOvertimeAbility(Hero enemyHero) {
+//    float damage = 50 + (overtimeHero.getLevel()*30);
+//    float damageWithModifier = damage*modifiers.get(enemyHero.getType());
+//    long totalOvertimeDamage = (long) (damage + damageWithModifier);
+//    enemyHero.takeDamage(totalOvertimeDamage);
+    return 0;
   }
 }
