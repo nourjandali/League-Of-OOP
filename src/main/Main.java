@@ -46,6 +46,9 @@ public final class Main {
       } else if (heroesTypes.get(i).equals("R")) {
         Rogue rogue = new Rogue(heroPosition);
         heroes.add(rogue);
+      } else if (heroesTypes.get(i).equals("W")) {
+        Wizard wizard = new Wizard(heroPosition);
+        heroes.add(wizard);
       }
     }
     // Game rounds

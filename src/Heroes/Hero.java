@@ -63,6 +63,8 @@ public abstract class Hero {
 
   public abstract double getTotalDamage(Hero enemyHero, char terrainType, int round);
 
+  public abstract double getTotalDamageWithoutModifier(char terrainType, int round);
+
   public HeroesType getType() {
     return type;
   }

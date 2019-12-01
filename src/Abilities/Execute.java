@@ -18,6 +18,12 @@ public class Execute extends Ability {
             this.hpLimit = 0.4;
         }
     }
+
+    @Override
+    public double execute() {
+        return this.damage;
+    }
+
     @Override
     public double execute(Hero enemyHero) {
         double hpPercentage = enemyHero.getHP()/enemyHero.getInitHP();

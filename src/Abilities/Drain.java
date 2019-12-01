@@ -15,9 +15,15 @@ public class Drain extends Ability {
   }
 
   @Override
+  public double execute() {
+    return 0;
+  }
+
+  @Override
   public double execute(Hero enemyHero) {
-    double basicHP = Math.min(0.3*enemyHero.getInitHP(), enemyHero.getHP());
-    double totalPercentage = this.percentage + (this.percentage*modifiers.get(enemyHero.getType()));
-    return (basicHP*totalPercentage);
+    double basicHP = Math.min(0.3 * enemyHero.getInitHP(), enemyHero.getHP());
+    double totalPercentage =
+        this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
+    return (basicHP * totalPercentage);
   }
 }
