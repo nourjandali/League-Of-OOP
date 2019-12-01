@@ -25,32 +25,36 @@ public class Knight extends Hero {
   }
 
   @Override
-  public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double executeDamage =
+    float executeDamage =
         abilitiesFactory
             .createAbility("Execute", this.level, round, terrainType)
             .execute(enemyHero);
-    double slamDamage =
+    float slamDamage =
         abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute(enemyHero);
-    double totalDamage = executeDamage + slamDamage;
     if (terrainType == 'L') {
-      totalDamage *= 1.15;
+      executeDamage *= 1.15f;
+      slamDamage *= 1.15f;
     }
+    int totalDamage = Math.round(executeDamage) + Math.round(slamDamage);
+
     return totalDamage;
   }
 
   @Override
-  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double executeDamage =
+    float executeDamage =
         abilitiesFactory.createAbility("Execute", this.level, round, terrainType).execute();
-    double slamDamage =
+    float slamDamage =
         abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute();
-    double totalDamage = executeDamage + slamDamage;
     if (terrainType == 'L') {
-      totalDamage *= 1.15;
+      executeDamage *= 1.15f;
+      slamDamage *= 1.15f;
     }
+    int totalDamage = Math.round(executeDamage) + Math.round(slamDamage);
+
     return totalDamage;
   }
 }

@@ -24,23 +24,24 @@ public class Wizard extends Hero {
   }
 
   @Override
-  public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double drainDamage =
+    float drainDamage =
         abilitiesFactory.createAbility("Drain", this.level, round, terrainType).execute(enemyHero);
-    double deflectDamage =
+    float deflectDamage =
         abilitiesFactory
             .createAbility("Deflect", this.level, round, terrainType)
             .execute(enemyHero);
-    double totalDamage = drainDamage + deflectDamage;
     if (terrainType == 'D') {
-      totalDamage *= 1.10;
+      drainDamage *= 1.10f;
+      deflectDamage *= 1.10f;
     }
+    int totalDamage = Math.round(drainDamage) + Math.round(deflectDamage);
     return totalDamage;
   }
 
   @Override
-  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(char terrainType, int round) {
     return 0;
   }
 }

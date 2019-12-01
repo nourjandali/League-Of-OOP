@@ -27,41 +27,43 @@ public class Rogue extends Hero {
   }
 
   @Override
-  public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double backstabDamage =
+    float backstabDamage =
         abilitiesFactory
             .createAbility("Backstab", this.level, round, terrainType)
             .execute(enemyHero);
-    double paralysisDamage =
+    float paralysisDamage =
         abilitiesFactory
             .createAbility("Paralysis", this.level, round, terrainType)
             .execute(enemyHero);
     if (backstabCount % 3 == 0 && terrainType == 'W') {
-      backstabDamage += (1.5 * backstabDamage);
+      backstabDamage += (1.5f * backstabDamage);
     }
-    double totalDamage = backstabDamage + paralysisDamage;
     if (terrainType == 'W') {
-      totalDamage *= 1.15;
+      backstabDamage *= 1.15f;
+      paralysisDamage *= 1.15f;
     }
+    int totalDamage = Math.round(backstabDamage) + Math.round(paralysisDamage);
     backstabCount++;
     return totalDamage;
   }
 
   @Override
-  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double backstabDamage =
+    float backstabDamage =
         abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
-    double paralysisDamage =
+    float paralysisDamage =
         abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
     if (backstabCount % 3 == 0 && terrainType == 'W') {
-      backstabDamage += (1.5 * backstabDamage);
+      backstabDamage += (1.5f * backstabDamage);
     }
-    double totalDamage = backstabDamage + paralysisDamage;
     if (terrainType == 'W') {
-      totalDamage *= 1.15;
+      backstabDamage *= 1.15f;
+      paralysisDamage *= 1.15f;
     }
+    int totalDamage = Math.round(backstabDamage) + Math.round(paralysisDamage);
     backstabCount++;
     return totalDamage;
   }

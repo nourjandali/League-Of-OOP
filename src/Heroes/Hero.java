@@ -1,5 +1,7 @@
 package Heroes;
 
+import Abilities.Ability;
+
 import java.util.ArrayList;
 
 // Note : Heroes may kill each other. In this case, both will receive the appropriate XP.
@@ -11,6 +13,9 @@ public abstract class Hero {
   private boolean isDead;
   protected HeroesType type;
   protected int[] position = new int[2];
+  protected Ability overtimeAbility;
+  private int overtimeRoundEnd;
+  private Hero overtimeHero;
 
   protected Hero(ArrayList<Integer> position) {
     this.XP = 0;
@@ -18,6 +23,7 @@ public abstract class Hero {
     this.position[0] = position.get(0);
     this.position[1] = position.get(1);
     this.isDead = false;
+    this.overtimeRoundEnd = -1;
   }
 
   public void win(int loserLevel) {
@@ -61,9 +67,9 @@ public abstract class Hero {
     }
   }
 
-  public abstract double getTotalDamage(Hero enemyHero, char terrainType, int round);
+  public abstract int getTotalDamage(Hero enemyHero, char terrainType, int round);
 
-  public abstract double getTotalDamageWithoutModifier(char terrainType, int round);
+  public abstract int getTotalDamageWithoutModifier(char terrainType, int round);
 
   public HeroesType getType() {
     return type;
@@ -93,5 +99,19 @@ public abstract class Hero {
 
   public int getLevel() {
     return level;
+  }
+
+  public void setOvertime(Ability overtimeAbility, int overtimeRoundEnd, Hero overtimeHero) {
+    this.overtimeAbility = overtimeAbility;
+    this.overtimeRoundEnd = overtimeRoundEnd;
+    this.overtimeHero = overtimeHero;
+  }
+
+  public void updateOvertime(int round) {
+    if (round > overtimeRoundEnd) {
+      overtimeRoundEnd = -1;
+    } else {
+      this.overtimeAbility.executeOvertimeAbility(this, this.overtimeHero);
+    }
   }
 }

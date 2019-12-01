@@ -25,32 +25,34 @@ public class Pyromancer extends Hero {
   }
 
   @Override
-  public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double fireblastDamage =
+    float fireblastDamage =
         abilitiesFactory
             .createAbility("Fireblast", this.level, round, terrainType)
             .execute(enemyHero);
-    double igniteDamage =
+    float igniteDamage =
         abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute(enemyHero);
-    double totalDamage = fireblastDamage + igniteDamage;
     if (terrainType == 'V') {
-      totalDamage *= 1.25;
+      fireblastDamage *= 1.25;
+      igniteDamage *= 1.25;
     }
+    int totalDamage = Math.round(fireblastDamage) + Math.round(igniteDamage);
     return totalDamage;
   }
 
   @Override
-  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double fireblastDamage =
+    float fireblastDamage =
         abilitiesFactory.createAbility("Fireblast", this.level, round, terrainType).execute();
-    double igniteDamage =
+    float igniteDamage =
         abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute();
-    double totalDamage = fireblastDamage + igniteDamage;
     if (terrainType == 'V') {
-      totalDamage *= 1.25;
+      fireblastDamage *= 1.25;
+      igniteDamage *= 1.25;
     }
+    int totalDamage = Math.round(fireblastDamage) + Math.round(igniteDamage);
     return totalDamage;
   }
 
