@@ -16,41 +16,44 @@ public class Knight extends Hero {
   @Override
   public void levelUp() {
     if (this.XP > getThreshold()) {
-      this.level++;
-      this.XP -= getThreshold();
+      this.level = ( this.XP - 250 ) / 50 + 1;
       // Resetting HP
-      initHP += 80;
+      initHP += (80* this.level);
       this.HP = this.initHP;
     }
   }
 
   @Override
-  public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double executeDamage =
-        abilitiesFactory
-            .createAbility("Execute", this.level, round, terrainType)
-            .execute(enemyHero);
-    double slamDamage =
-        abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute(enemyHero);
-    double totalDamage = executeDamage + slamDamage;
+    float executeDamage =
+            abilitiesFactory
+                    .createAbility("Execute", this.level, round, terrainType)
+                    .execute(enemyHero);
+    float slamDamage =
+            abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute(enemyHero);
     if (terrainType == 'L') {
-      totalDamage *= 1.15;
+      executeDamage *= 1.15f;
+      slamDamage *= 1.15f;
     }
+    int totalDamage = Math.round(executeDamage) + Math.round(slamDamage);
+
     return totalDamage;
   }
 
   @Override
-  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double executeDamage =
-        abilitiesFactory.createAbility("Execute", this.level, round, terrainType).execute();
-    double slamDamage =
-        abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute();
-    double totalDamage = executeDamage + slamDamage;
+    float executeDamage =
+            abilitiesFactory.createAbility("Execute", this.level, round, terrainType).execute();
+    float slamDamage =
+            abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute();
     if (terrainType == 'L') {
-      totalDamage *= 1.15;
+      executeDamage *= 1.15f;
+      slamDamage *= 1.15f;
     }
+    int totalDamage = Math.round(executeDamage) + Math.round(slamDamage);
+
     return totalDamage;
   }
 }

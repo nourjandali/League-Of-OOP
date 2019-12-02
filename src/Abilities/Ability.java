@@ -6,9 +6,8 @@ import Heroes.HeroesType;
 import java.util.HashMap;
 
 public abstract class Ability {
-    protected HashMap<HeroesType, Double> modifiers = new HashMap<HeroesType, Double>();
-    public abstract double execute();
-    public abstract double execute(Hero enemyHero);
-
-
+    protected HashMap<HeroesType, Float> modifiers = new HashMap<HeroesType, Float>();
+    public abstract float execute();
+    public abstract float execute(Hero enemyHero);
+    public abstract float executeOvertimeAbility(Hero enemyHero, char terrainType);
 }

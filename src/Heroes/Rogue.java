@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Rogue extends Hero {
   int backstabCount;
+  int backstabCountOvertime;
 
   public Rogue(ArrayList<Integer> position) {
     super(position);
@@ -13,56 +14,59 @@ public class Rogue extends Hero {
     this.HP = this.initHP;
     type = HeroesType.Rogue;
     this.backstabCount = 0;
+    this.backstabCountOvertime = 0;
+
   }
 
   @Override
   public void levelUp() {
     if (this.XP > getThreshold()) {
-      this.level++;
-      this.XP -= getThreshold();
+      this.level = ( this.XP - 250 ) / 50 + 1;
       // Resetting HP
-      initHP += 40;
+      initHP += (40 * this.level);
       this.HP = this.initHP;
     }
   }
 
   @Override
-  public double getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double backstabDamage =
-        abilitiesFactory
-            .createAbility("Backstab", this.level, round, terrainType)
-            .execute(enemyHero);
-    double paralysisDamage =
-        abilitiesFactory
-            .createAbility("Paralysis", this.level, round, terrainType)
-            .execute(enemyHero);
-    if (backstabCount % 3 == 0 && terrainType == 'W') {
-      backstabDamage += (1.5 * backstabDamage);
+    float backstabDamage =
+            abilitiesFactory
+                    .createAbility("Backstab", this.level, round, terrainType)
+                    .execute(enemyHero);
+    float paralysisDamage =
+            abilitiesFactory
+                    .createAbility("Paralysis", this.level, round, terrainType)
+                    .execute(enemyHero);
+    if (backstabCount % 3 == 0 && terrainType == 'W' ) {
+      backstabDamage *= 1.5f;
     }
-    double totalDamage = backstabDamage + paralysisDamage;
     if (terrainType == 'W') {
-      totalDamage *= 1.15;
+      backstabDamage *= 1.15f;
+      paralysisDamage *= 1.15f;
     }
+    int totalDamage = Math.round(backstabDamage) + Math.round(paralysisDamage);
     backstabCount++;
     return totalDamage;
   }
 
   @Override
-  public double getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
-    double backstabDamage =
-        abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
-    double paralysisDamage =
-        abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
-    if (backstabCount % 3 == 0 && terrainType == 'W') {
-      backstabDamage += (1.5 * backstabDamage);
+    float backstabDamage =
+            abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
+    float paralysisDamage =
+            abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
+    if (backstabCountOvertime % 3 == 0 && terrainType == 'W' ) {
+      backstabDamage *= 1.5f;
     }
-    double totalDamage = backstabDamage + paralysisDamage;
     if (terrainType == 'W') {
-      totalDamage *= 1.15;
+      backstabDamage *= 1.15f;
+      paralysisDamage *= 1.15f;
     }
-    backstabCount++;
+    int totalDamage = Math.round(backstabDamage) + Math.round(paralysisDamage);
+    backstabCountOvertime++;
     return totalDamage;
   }
 }

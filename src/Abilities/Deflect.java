@@ -5,27 +5,35 @@ import Heroes.HeroesType;
 
 public class Deflect extends Ability {
   char terrainType;
-  double percentage;
+  float percentage;
   int round;
 
   public Deflect(int level, int round, char terrainType) {
-    this.percentage = Math.min(0.35 + (level * 0.02), 0.7);
-    modifiers.put(HeroesType.Rogue, 0.2);
-    modifiers.put(HeroesType.Knight, 0.4);
-    modifiers.put(HeroesType.Pyromancer, 0.3);
-    modifiers.put(HeroesType.Wizard, -1.0);
+    this.percentage = Math.min(0.35f + (level * 0.02f), 0.7f);
+    modifiers.put(HeroesType.Rogue, 0.2f);
+    modifiers.put(HeroesType.Knight, 0.4f);
+    modifiers.put(HeroesType.Pyromancer, 0.3f);
+    modifiers.put(HeroesType.Wizard, 0.0f);
     this.terrainType = terrainType;
     this.round = round;
   }
 
   @Override
-  public double execute() {
+  public float execute() {
     return 0;
   }
 
   @Override
-  public double execute(Hero enemyHero) {
-    double deflectedDamage = enemyHero.getTotalDamageWithoutModifier(this.terrainType, this.round);
-    return this.percentage * deflectedDamage * (1 + modifiers.get(enemyHero.getType()));
+  public float execute(Hero enemyHero) {
+    if(enemyHero.getType() == HeroesType.Wizard){
+      return 0;
+    }
+    float deflectedDamage = enemyHero.getTotalDamageWithoutModifier(this.terrainType, this.round);
+    return (this.percentage * deflectedDamage * (1.0f + modifiers.get(enemyHero.getType())));
+  }
+
+  @Override
+  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    return 0;
   }
 }

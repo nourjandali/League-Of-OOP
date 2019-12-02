@@ -4,26 +4,31 @@ import Heroes.Hero;
 import Heroes.HeroesType;
 
 public class Drain extends Ability {
-  double percentage;
+  float percentage;
 
   public Drain(int level) {
-    this.percentage = 0.2 + (level * 0.05);
-    modifiers.put(HeroesType.Rogue, -0.2);
-    modifiers.put(HeroesType.Knight, 0.2);
-    modifiers.put(HeroesType.Pyromancer, -0.1);
-    modifiers.put(HeroesType.Wizard, 0.05);
+    this.percentage = 0.2f + (level * 0.05f);
+    modifiers.put(HeroesType.Rogue, -0.2f);
+    modifiers.put(HeroesType.Knight, 0.2f);
+    modifiers.put(HeroesType.Pyromancer, -0.1f);
+    modifiers.put(HeroesType.Wizard, 0.05f);
   }
 
   @Override
-  public double execute() {
+  public float execute() {
     return 0;
   }
 
   @Override
-  public double execute(Hero enemyHero) {
-    double basicHP = Math.min(0.3 * enemyHero.getInitHP(), enemyHero.getHP());
-    double totalPercentage =
-        this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
+  public float execute(Hero enemyHero) {
+    float basicHP = Math.min(0.3f * enemyHero.getInitHP(), enemyHero.getHP());
+    float totalPercentage =
+            this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
     return (basicHP * totalPercentage);
+  }
+
+  @Override
+  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    return 0;
   }
 }

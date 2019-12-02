@@ -1,5 +1,8 @@
 package main;
 
+import Abilities.Ignite;
+import Abilities.Paralysis;
+import Abilities.Slam;
 import Heroes.*;
 import fileio.FileSystem;
 
@@ -53,10 +56,16 @@ public final class Main {
     }
     // Game rounds
     for (int i = 0; i < gameInput.getRoundCount(); i++) {
-      double[] heroDamage = new double[heroes.size()];
       // Perform heroes movements
       for (int j = 0; j < heroes.size(); j++) {
-        heroes.get(j).updatePosition(gameInput.getHeroMovement(i, j));
+        Hero currentHero = heroes.get(j);
+        currentHero.updateOvertime(i);
+        if (currentHero.getHP() == 0) {
+          currentHero.setDead(true);
+        }
+        if(!currentHero.isSlammed()){
+          currentHero.updatePosition(gameInput.getHeroMovement(i, j));
+        }
       }
       // Calculate damage and perform heroes action
       for (int j = 0; j < heroes.size(); j++) {
@@ -75,8 +84,19 @@ public final class Main {
           int[] enemyPosition = enemyHero.getPosition();
           // Else fight other heroes if same place
           if (isSamePosition(heroPosition, enemyPosition)) {
-            double damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
-            enemyHero.takeDamage(Math.round(damageDone));
+            int damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
+            enemyHero.takeDamage(damageDone);
+            if (currentHero.getType() == HeroesType.Pyromancer) {
+              enemyHero.setOvertime(new Ignite(currentHero.getLevel(), i), i+1,i + 3, terrainType);
+            }else if(currentHero.getType() == HeroesType.Rogue){
+              int noOfRounds = 3;
+              if(terrainType == 'W'){
+                noOfRounds = 6;
+              }
+              enemyHero.setOvertime(new Paralysis(currentHero.getLevel()), i+1,i + 1 + noOfRounds, terrainType);
+            }else if(currentHero.getType() == HeroesType.Knight){
+              enemyHero.setOvertime(new Slam(currentHero.getLevel()), i+1,i + 2, terrainType);
+            }
             if (enemyHero.getHP() == 0) {
               currentHero.win(enemyHero.getLevel());
             }
@@ -85,22 +105,22 @@ public final class Main {
       }
       // Perform further checks on all heroes
       for (int j = 0; j < heroes.size(); j++) {
-        Hero currentHero = heroes.get(i);
+        Hero currentHero = heroes.get(j);
         // Check if dead
         if (currentHero.getHP() == 0) {
           currentHero.setDead(true);
+        }else {
+          // Level up hero if exceeded the threshold
+          heroes.get(j).levelUp();
         }
-        // Level up hero if exceeded the threshold
-        heroes.get(j).levelUp();
       }
-
     }
     FileSystem fs = gameLoader.getFs();
     for (int i = 0; i < heroes.size(); i++) {
       Hero currentHero = heroes.get(i);
-//      System.out.println(currentHero.getHP());
-//      System.out.println(currentHero.getLevel());
-//      System.out.println("-------------------------");
+      //      System.out.println(currentHero.getHP());
+      //      System.out.println(currentHero.getLevel());
+      //      System.out.println("-------------------------");
       char heroChar = getTypeChar(currentHero.getType());
       fs.writeCharacter(heroChar);
       fs.writeCharacter(' ');
