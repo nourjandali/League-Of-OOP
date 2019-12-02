@@ -32,7 +32,7 @@ public final class GameLoader {
         mapLands[i] = fs.nextWord();
       }
       int heroCount = fs.nextInt();
-      for(int i = 0; i<heroCount; i++) {
+      for (int i = 0; i < heroCount; i++) {
         ArrayList<Integer> positions = new ArrayList<>();
         heroesTypes.add(fs.nextWord());
         positions.add(fs.nextInt());
@@ -40,20 +40,20 @@ public final class GameLoader {
         heroesPosition.put(i, positions);
       }
       int roundCount = fs.nextInt();
-      for(int i = 0; i < roundCount; i++){
+      for (int i = 0; i < roundCount; i++) {
         heroesMovement.add(fs.nextWord());
       }
-
-//      fs.close();
 
     } catch (Exception e1) {
       e1.printStackTrace();
     }
     return new GameInput(N, M, mapLands, heroesTypes, heroesPosition, heroesMovement);
   }
+
   public FileSystem getFs() {
     return fs;
   }
+
   public void closeFile() {
     try {
       this.fs.close();

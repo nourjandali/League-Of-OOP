@@ -23,12 +23,13 @@ public class Drain extends Ability {
   public float execute(Hero enemyHero) {
     float basicHP = Math.min(0.3f * enemyHero.getInitHP(), enemyHero.getHP());
     float totalPercentage =
-            this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
+        this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
     return (basicHP * totalPercentage);
   }
 
   @Override
   public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    // Drain does not have overtime
     return 0;
   }
 }

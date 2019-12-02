@@ -26,6 +26,7 @@ public class Fireblast extends Ability {
 
   @Override
   public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    // Fireblast does not have overtime
     return 0;
   }
 }

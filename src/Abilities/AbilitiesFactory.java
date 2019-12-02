@@ -9,7 +9,7 @@ public final class AbilitiesFactory {
     }
     return instance;
   }
-
+  // Used to create any chosen ability
   public Ability createAbility(final String type, final int level, final int round, char terrainType) {
     switch (type) {
       case "Fireblast":

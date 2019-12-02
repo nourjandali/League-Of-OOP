@@ -25,15 +25,19 @@ public class Deflect extends Ability {
 
   @Override
   public float execute(Hero enemyHero) {
-    if(enemyHero.getType() == HeroesType.Wizard){
+    // Two wizard heroes do not give each other
+    if (enemyHero.getType() == HeroesType.Wizard) {
       return 0;
     }
+
+    // Apply deflect ability other heroes
     float deflectedDamage = enemyHero.getTotalDamageWithoutModifier(this.terrainType, this.round);
     return (this.percentage * deflectedDamage * (1.0f + modifiers.get(enemyHero.getType())));
   }
 
   @Override
   public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    // Deflect does not have overtime
     return 0;
   }
 }

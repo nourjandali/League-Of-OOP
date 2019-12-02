@@ -31,13 +31,6 @@ public abstract class Hero {
     this.isSlammed = false;
   }
 
-  public void win(int loserLevel) {
-    // Calculating new XP
-    this.XP += Math.max(0, 200 - (this.level - loserLevel) * 40);
-  }
-
-  public abstract void levelUp();
-
   public void setDead(boolean dead) {
     isDead = dead;
   }
@@ -46,35 +39,9 @@ public abstract class Hero {
     return isDead;
   }
 
-  protected int getThreshold() {
-    return (250 + this.level * 50);
-  }
-
   public int[] getPosition() {
     return position;
   }
-
-  public void updatePosition(char move) {
-    switch (move) {
-      case 'U':
-        position[0]--;
-        break;
-      case 'D':
-        position[0]++;
-        break;
-      case 'L':
-        position[1]--;
-        break;
-      case 'R':
-        position[1]++;
-        break;
-      default:
-    }
-  }
-
-  public abstract int getTotalDamage(Hero enemyHero, char terrainType, int round);
-
-  public abstract int getTotalDamageWithoutModifier(char terrainType, int round);
 
   public HeroesType getType() {
     return type;
@@ -92,38 +59,8 @@ public abstract class Hero {
     return initHP;
   }
 
-  public void takeDamage(long damage) {
-    int currentHP = this.HP;
-    currentHP -= damage;
-    if (currentHP < 0) {
-      this.HP = 0;
-    } else {
-      this.HP = currentHP;
-    }
-  }
-
   public int getLevel() {
     return level;
-  }
-
-  public void setOvertime(Ability overtimeAbility, int overtimeRoundStart,int overtimeRoundEnd, char terrainType) {
-    this.overtimeAbility = overtimeAbility;
-    this.overtimeRoundStart = overtimeRoundStart;
-    this.overtimeRoundEnd = overtimeRoundEnd;
-    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this, terrainType);
-  }
-
-  public void updateOvertime(int round) {
-    if (round >= overtimeRoundEnd) {
-      overtimeRoundEnd = -1;
-      overtimeRoundStart = -1;
-      overtimeAbility = null;
-      isParalyzed = false;
-      isSlammed = false;
-    } else {
-      this.takeDamage((long) this.overtimeDamage);
-
-    }
   }
 
   public int getOvertimeRoundStart() {
@@ -144,5 +81,93 @@ public abstract class Hero {
 
   public void setSlammed(boolean slammed) {
     isSlammed = slammed;
+  }
+  /*
+   * @param enemy hero level
+   * @returns new calculated xp for the winner
+   */
+  public void win(int loserLevel) {
+    this.XP += Math.max(0, 200 - (this.level - loserLevel) * 40);
+  }
+  /*
+   * @returns if exceeds the threshold, hero will level up
+   */
+  public abstract void levelUp();
+  /*
+   * @returns calculated threshold
+   */
+  protected int getThreshold() {
+    return (250 + this.level * 50);
+  }
+  /*
+   * Update the hero position according to the input move
+   * @param movement character
+   */
+  public void updatePosition(char move) {
+    switch (move) {
+      case 'U':
+        position[0]--;
+        break;
+      case 'D':
+        position[0]++;
+        break;
+      case 'L':
+        position[1]--;
+        break;
+      case 'R':
+        position[1]++;
+        break;
+      default:
+    }
+  }
+  /*
+   * @param enemy hero, terrain type & round
+   * @returns total damage done by a hero
+   */
+  public abstract int getTotalDamage(Hero enemyHero, char terrainType, int round);
+  /*
+   * Used for wizard's deflect ability
+   * @param terrain type & round
+   * @returns total damage done by a hero without modifier
+   */
+  public abstract int getTotalDamageWithoutModifier(char terrainType, int round);
+  /*
+   * Apply the damage done by enemy hero
+   * @param damage done by enemy hero
+   */
+  public void takeDamage(long damage) {
+    int currentHP = this.HP;
+    currentHP -= damage;
+    if (currentHP < 0) {
+      this.HP = 0;
+    } else {
+      this.HP = currentHP;
+    }
+  }
+  /*
+   * Set overtime ability if exists
+   * @param overtime ability, overtime round range & terrain type
+   */
+  public void setOvertime(
+      Ability overtimeAbility, int overtimeRoundStart, int overtimeRoundEnd, char terrainType) {
+    this.overtimeAbility = overtimeAbility;
+    this.overtimeRoundStart = overtimeRoundStart;
+    this.overtimeRoundEnd = overtimeRoundEnd;
+    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this, terrainType);
+  }
+  /*
+   * Deactivate or overtime ability
+   * @param round number
+   */
+  public void updateOvertime(int round) {
+    if (round >= overtimeRoundEnd) {
+      overtimeRoundEnd = -1;
+      overtimeRoundStart = -1;
+      overtimeAbility = null;
+      isParalyzed = false;
+      isSlammed = false;
+    } else {
+      this.takeDamage((long) this.overtimeDamage);
+    }
   }
 }

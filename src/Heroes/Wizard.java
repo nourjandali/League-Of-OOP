@@ -15,9 +15,9 @@ public class Wizard extends Hero {
   @Override
   public void levelUp() {
     if (this.XP > getThreshold()) {
-      this.level = ( this.XP - 250 ) / 50 + 1;
+      this.level = (this.XP - 250) / 50 + 1;
       // Resetting HP
-      initHP += (30* this.level);
+      initHP += (30 * this.level);
       this.HP = this.initHP;
     }
   }
@@ -26,11 +26,11 @@ public class Wizard extends Hero {
   public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float drainDamage =
-            abilitiesFactory.createAbility("Drain", this.level, round, terrainType).execute(enemyHero);
+        abilitiesFactory.createAbility("Drain", this.level, round, terrainType).execute(enemyHero);
     float deflectDamage =
-            abilitiesFactory
-                    .createAbility("Deflect", this.level, round, terrainType)
-                    .execute(enemyHero);
+        abilitiesFactory
+            .createAbility("Deflect", this.level, round, terrainType)
+            .execute(enemyHero);
     if (terrainType == 'D') {
       drainDamage *= 1.10f;
       deflectDamage *= 1.10f;

@@ -13,11 +13,17 @@ public final class Main {
   private Main() {
     // just to trick checkstyle
   }
-
+  /*
+   * @param 2 heroes positions
+   * @returns indicator for same position
+   */
   private static boolean isSamePosition(int[] pos1, int[] pos2) {
     return pos1[0] == pos2[0] && pos1[1] == pos2[1];
   }
-
+  /*
+   * @param hero type
+   * @returns the character who represents the hero type
+   */
   private static char getTypeChar(HeroesType type) {
     switch (type) {
       case Pyromancer:
@@ -35,9 +41,13 @@ public final class Main {
   public static void main(final String[] args) throws IOException {
     GameLoader gameLoader = new GameLoader(args[0], args[1]);
     GameInput gameInput = gameLoader.load();
+
     Map map = new Map(gameInput.getN(), gameInput.getM(), gameInput.getMapLands());
+
     ArrayList<Hero> heroes = new ArrayList<>();
     ArrayList<String> heroesTypes = gameInput.getHeroesTypes();
+
+    // Heroes creations
     for (int i = 0; i < heroesTypes.size(); i++) {
       ArrayList<Integer> heroPosition = gameInput.getHeroPosition(i);
       if (heroesTypes.get(i).equals("P")) {
@@ -54,6 +64,7 @@ public final class Main {
         heroes.add(wizard);
       }
     }
+
     // Game rounds
     for (int i = 0; i < gameInput.getRoundCount(); i++) {
       // Perform heroes movements
@@ -63,10 +74,11 @@ public final class Main {
         if (currentHero.getHP() == 0) {
           currentHero.setDead(true);
         }
-        if(!currentHero.isSlammed()){
+        if (!currentHero.isSlammed()) {
           currentHero.updatePosition(gameInput.getHeroMovement(i, j));
         }
       }
+
       // Calculate damage and perform heroes action
       for (int j = 0; j < heroes.size(); j++) {
         Hero currentHero = heroes.get(j);
@@ -86,16 +98,19 @@ public final class Main {
           if (isSamePosition(heroPosition, enemyPosition)) {
             int damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
             enemyHero.takeDamage(damageDone);
+            // Overtime abilities
             if (currentHero.getType() == HeroesType.Pyromancer) {
-              enemyHero.setOvertime(new Ignite(currentHero.getLevel(), i), i+1,i + 3, terrainType);
-            }else if(currentHero.getType() == HeroesType.Rogue){
+              enemyHero.setOvertime(
+                  new Ignite(currentHero.getLevel(), i), i + 1, i + 3, terrainType);
+            } else if (currentHero.getType() == HeroesType.Rogue) {
               int noOfRounds = 3;
-              if(terrainType == 'W'){
+              if (terrainType == 'W') {
                 noOfRounds = 6;
               }
-              enemyHero.setOvertime(new Paralysis(currentHero.getLevel()), i+1,i + 1 + noOfRounds, terrainType);
-            }else if(currentHero.getType() == HeroesType.Knight){
-              enemyHero.setOvertime(new Slam(currentHero.getLevel()), i+1,i + 2, terrainType);
+              enemyHero.setOvertime(
+                  new Paralysis(currentHero.getLevel()), i + 1, i + 1 + noOfRounds, terrainType);
+            } else if (currentHero.getType() == HeroesType.Knight) {
+              enemyHero.setOvertime(new Slam(currentHero.getLevel()), i + 1, i + 2, terrainType);
             }
             if (enemyHero.getHP() == 0) {
               currentHero.win(enemyHero.getLevel());
@@ -103,24 +118,24 @@ public final class Main {
           }
         }
       }
+
       // Perform further checks on all heroes
       for (int j = 0; j < heroes.size(); j++) {
         Hero currentHero = heroes.get(j);
         // Check if dead
         if (currentHero.getHP() == 0) {
           currentHero.setDead(true);
-        }else {
+        } else {
           // Level up hero if exceeded the threshold
           heroes.get(j).levelUp();
         }
       }
     }
+
+    // Printing out to output file
     FileSystem fs = gameLoader.getFs();
     for (int i = 0; i < heroes.size(); i++) {
       Hero currentHero = heroes.get(i);
-      //      System.out.println(currentHero.getHP());
-      //      System.out.println(currentHero.getLevel());
-      //      System.out.println("-------------------------");
       char heroChar = getTypeChar(currentHero.getType());
       fs.writeCharacter(heroChar);
       fs.writeCharacter(' ');

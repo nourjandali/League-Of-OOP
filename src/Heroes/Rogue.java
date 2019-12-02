@@ -15,13 +15,12 @@ public class Rogue extends Hero {
     type = HeroesType.Rogue;
     this.backstabCount = 0;
     this.backstabCountOvertime = 0;
-
   }
 
   @Override
   public void levelUp() {
     if (this.XP > getThreshold()) {
-      this.level = ( this.XP - 250 ) / 50 + 1;
+      this.level = (this.XP - 250) / 50 + 1;
       // Resetting HP
       initHP += (40 * this.level);
       this.HP = this.initHP;
@@ -32,14 +31,14 @@ public class Rogue extends Hero {
   public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float backstabDamage =
-            abilitiesFactory
-                    .createAbility("Backstab", this.level, round, terrainType)
-                    .execute(enemyHero);
+        abilitiesFactory
+            .createAbility("Backstab", this.level, round, terrainType)
+            .execute(enemyHero);
     float paralysisDamage =
-            abilitiesFactory
-                    .createAbility("Paralysis", this.level, round, terrainType)
-                    .execute(enemyHero);
-    if (backstabCount % 3 == 0 && terrainType == 'W' ) {
+        abilitiesFactory
+            .createAbility("Paralysis", this.level, round, terrainType)
+            .execute(enemyHero);
+    if (backstabCount % 3 == 0 && terrainType == 'W') {
       backstabDamage *= 1.5f;
     }
     if (terrainType == 'W') {
@@ -55,10 +54,10 @@ public class Rogue extends Hero {
   public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float backstabDamage =
-            abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
+        abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
     float paralysisDamage =
-            abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
-    if (backstabCountOvertime % 3 == 0 && terrainType == 'W' ) {
+        abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
+    if (backstabCountOvertime % 3 == 0 && terrainType == 'W') {
       backstabDamage *= 1.5f;
     }
     if (terrainType == 'W') {

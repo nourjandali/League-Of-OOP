@@ -25,7 +25,7 @@ public class Execute extends Ability {
     float hpLimit = Math.min(0.2f + (0.01f * enemyHero.getLevel()), 0.4f);
     float hpPercentage = (float) enemyHero.getHP() / enemyHero.getInitHP();
     if (hpPercentage < hpLimit) {
-      // Enemy take damage with all their health to die
+      // Enemy take damage with all its health to die
       return enemyHero.getHP();
     }
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
@@ -33,6 +33,7 @@ public class Execute extends Ability {
 
   @Override
   public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    // Execute does not have overtime
     return 0;
   }
 }
