@@ -42,7 +42,7 @@ public final class Deflect extends Ability {
   }
 
   @Override
-  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrain) {
     // Deflect does not have overtime
     return 0;
   }

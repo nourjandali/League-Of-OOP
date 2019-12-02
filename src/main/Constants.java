@@ -6,8 +6,8 @@ public final class Constants {
   public static final int XP_LEVEL_UP_CONST_2 = 50;
   public static final int WIN_CONSTANT = 200;
   public static final int WIN_CONSTANT_PER_LEVEL = 40;
-  public static final int THRESHOLD_COMSTANT = 250;
-  public static final int THRESHOLD_COMSTANT_PER_LEVEL = 50;
+  public static final int THRESHOLD_CONSTANT = 250;
+  public static final int THRESHOLD_CONSTANT_PER_LEVEL = 50;
 
   public static final int KNIGHT_INIT_HP = 900;
   public static final int KNIGHT_HP_PER_LEVEL = 80;
@@ -27,23 +27,15 @@ public final class Constants {
   public static final int ROGUE_HP_PER_LEVEL = 40;
   public static final float ROGUE_BACKSTAB_CRITICAL_HIT = 1.5f;
   public static final float ROGUE_OVERTIME_BACKSTAB_CRITICAL_HIT = 1.5f;
-
   public static final float ROGUE_BACKSTAB_DMG = 1.15f;
   public static final float ROGUE_OVERTIME_BACKSTAB_DMG = 1.15f;
   public static final float ROGUE_PARALYSIS_DMG = 1.15f;
   public static final float ROGUE_OVERTIME_PARALYSIS_DMG = 1.15f;
 
-
-
-
-
-
-
-
-
-
-
-
+  public static final int WIZARD_INIT_HP = 400;
+  public static final int WIZARD_HP_PER_LEVEL = 30;
+  public static final float WIZARD_DRAIN_DMG = 1.10f;
+  public static final float WIZARD_DEFLECT_DMG = 1.10f;
 
   public static final int BACKSTAB_DAMAGE = 200;
   public static final int BACKSTAB_DAMAGE_PER_LEVEL = 20;
@@ -51,6 +43,7 @@ public final class Constants {
   public static final float BACKSTAB_KNIGHT = -0.1f;
   public static final float BACKSTAB_PYROMANCER = 0.25f;
   public static final float BACKSTAB_WIZARD = 0.25f;
+  public static final int BACKSTAB_CRITICAL_OCCUR = 3;
 
   public static final float DEFLECT_PERC = 0.35f;
   public static final float DEFLECT_PERC_PER_LEVEL = 0.02f;
@@ -91,11 +84,10 @@ public final class Constants {
   public static final float IGNITE_KNIGHT = 0.2f;
   public static final float IGNITE_PYROMANCER = -0.1f;
   public static final float IGNITE_WIZARD = 0.05f;
-  public static final int IGNITE_OVERTIME_TERRAIN_AMP = 1;
   public static final float IGNITE_OVERTIME_TERRAIN_AMP_VOLCANIC = 1.25f;
   public static final int IGNITE_OVERTIME_DAMAGE = 50;
   public static final int IGNITE_OVERTIME_DAMAGE_PER_LEVEL = 30;
-
+  public static final int IGNITE_OVERTIME_ROUNDS = 3;
 
   public static final int PARALYSIS_DAMAGE = 40;
   public static final int PARALYSIS_DAMAGE_PER_LEVEL = 10;
@@ -103,6 +95,9 @@ public final class Constants {
   public static final float PARALYSIS_KNIGHT = -0.2f;
   public static final float PARALYSIS_PYROMANCER = 0.2f;
   public static final float PARALYSIS_WIZARD = 0.25f;
+  public static final float PARALYSIS_OVERTIME_TERRAIN_AMP_WOOD = 1.15f;
+  public static final int PARALYSIS_OVERTIME_ROUNDS = 3;
+  public static final int PARALYSIS_OVERTIME_WOOD = 6;
 
   public static final int SLAM_DAMAGE = 100;
   public static final int SLAM_DAMAGE_PER_LEVEL = 40;
@@ -110,8 +105,6 @@ public final class Constants {
   public static final float SLAM_KNIGHT = 0.2f;
   public static final float SLAM_PYROMANCER = -0.1f;
   public static final float SLAM_WIZARD = 0.05f;
-
-
 
   private Constants() {
     // not called

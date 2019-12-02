@@ -29,7 +29,7 @@ public final class Ignite extends Ability {
 
   @Override
   public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
-    float terrainAmp = Constants.IGNITE_OVERTIME_TERRAIN_AMP;
+    float terrainAmp = 1;
     if (terrainType == 'V') {
       terrainAmp = Constants.IGNITE_OVERTIME_TERRAIN_AMP_VOLCANIC;
     }

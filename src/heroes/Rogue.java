@@ -6,8 +6,8 @@ import main.Constants;
 import java.util.ArrayList;
 
 public final class Rogue extends Hero {
-  int backstabCount;
-  int backstabCountOvertime;
+  private int backstabCount;
+  private int backstabCountOvertime;
 
   public Rogue(final ArrayList<Integer> position) {
     super(position);
@@ -39,7 +39,7 @@ public final class Rogue extends Hero {
         abilitiesFactory
             .createAbility("Paralysis", this.level, round, terrainType)
             .execute(enemyHero);
-    if (backstabCount % 3 == 0 && terrainType == 'W') {
+    if (backstabCount % Constants.BACKSTAB_CRITICAL_OCCUR == 0 && terrainType == 'W') {
       backstabDamage *= Constants.ROGUE_BACKSTAB_CRITICAL_HIT;
     }
     if (terrainType == 'W') {
@@ -58,7 +58,7 @@ public final class Rogue extends Hero {
         abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();
     float paralysisDamage =
         abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
-    if (backstabCountOvertime % 3 == 0 && terrainType == 'W') {
+    if (backstabCountOvertime % Constants.BACKSTAB_CRITICAL_OCCUR == 0 && terrainType == 'W') {
       backstabDamage *= Constants.ROGUE_OVERTIME_BACKSTAB_CRITICAL_HIT;
     }
     if (terrainType == 'W') {

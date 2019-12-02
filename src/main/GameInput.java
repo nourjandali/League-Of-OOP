@@ -4,43 +4,43 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class GameInput {
-  private final int N;
-  private final int M;
+  private final int n;
+  private final int m;
   private final String[] mapLands;
   private ArrayList<String> heroesTypes = new ArrayList<String>();
   private HashMap<Integer, ArrayList> heroesPosition = new HashMap<>();
   private ArrayList<String> heroesMovement = new ArrayList<>();
 
   public GameInput() {
-    this.N = 0;
-    this.M = 0;
+    this.n = 0;
+    this.m = 0;
     this.mapLands = null;
   }
 
   public GameInput(
-      final int N,
-      final int M,
+      final int n,
+      final int m,
       final String[] mapLands,
       final ArrayList<String> heroesTypes,
-      HashMap<Integer, ArrayList> heroesPosition,
+      final HashMap<Integer, ArrayList> heroesPosition,
       final ArrayList<String> heroesMovement) {
-    this.N = N;
-    this.M = M;
+    this.n = n;
+    this.m = m;
     this.mapLands = mapLands;
     this.heroesTypes = heroesTypes;
     this.heroesPosition = heroesPosition;
     this.heroesMovement = heroesMovement;
   }
 
-  public final int getN() {
-    return N;
+  public int getN() {
+    return n;
   }
 
-  public final int getM() {
-    return M;
+  public int getM() {
+    return m;
   }
 
-  public final String[] getMapLands() {
+  public String[] getMapLands() {
     return mapLands;
   }
 

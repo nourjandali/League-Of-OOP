@@ -1,13 +1,14 @@
 package heroes;
 
 import abilities.AbilitiesFactory;
+import main.Constants;
 
 import java.util.ArrayList;
 
 public final class Wizard extends Hero {
   public Wizard(final ArrayList<Integer> position) {
     super(position);
-    this.initHP = 400;
+    this.initHP = Constants.WIZARD_INIT_HP;
     this.hp = this.initHP;
     type = HeroesType.Wizard;
   }
@@ -15,9 +16,9 @@ public final class Wizard extends Hero {
   @Override
   public void levelUp() {
     if (this.xp > getThreshold()) {
-      this.level = (this.xp - 250) / 50 + 1;
+      this.level = (this.xp - Constants.XP_LEVEL_UP_CONST_1) / Constants.XP_LEVEL_UP_CONST_2 + 1;
       // Resetting hp
-      initHP += (30 * this.level);
+      initHP += (Constants.WIZARD_HP_PER_LEVEL * this.level);
       this.hp = this.initHP;
     }
   }
@@ -32,8 +33,8 @@ public final class Wizard extends Hero {
             .createAbility("Deflect", this.level, round, terrainType)
             .execute(enemyHero);
     if (terrainType == 'D') {
-      drainDamage *= 1.10f;
-      deflectDamage *= 1.10f;
+      drainDamage *= Constants.WIZARD_DRAIN_DMG;
+      deflectDamage *= Constants.WIZARD_DEFLECT_DMG;
     }
     int totalDamage = Math.round(drainDamage) + Math.round(deflectDamage);
     return totalDamage;

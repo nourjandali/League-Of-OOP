@@ -17,18 +17,18 @@ public final class GameLoader {
   }
 
   public GameInput load() {
-    int N = 0;
-    int M = 0;
+    int n = 0;
+    int m = 0;
     String[] mapLands = new String[0];
     HashMap<Integer, ArrayList> heroesPosition = new HashMap<>();
     ArrayList<String> heroesTypes = new ArrayList<String>();
     ArrayList<String> heroesMovement = new ArrayList<>();
     try {
       this.fs = new FileSystem(mInputPath, mOutputPath);
-      N = fs.nextInt();
-      M = fs.nextInt();
-      mapLands = new String[N];
-      for (int i = 0; i < N; i++) {
+      n = fs.nextInt();
+      m = fs.nextInt();
+      mapLands = new String[n];
+      for (int i = 0; i < n; i++) {
         mapLands[i] = fs.nextWord();
       }
       int heroCount = fs.nextInt();
@@ -47,7 +47,7 @@ public final class GameLoader {
     } catch (Exception e1) {
       e1.printStackTrace();
     }
-    return new GameInput(N, M, mapLands, heroesTypes, heroesPosition, heroesMovement);
+    return new GameInput(n, m, mapLands, heroesTypes, heroesPosition, heroesMovement);
   }
 
   public FileSystem getFs() {

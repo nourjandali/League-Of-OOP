@@ -91,7 +91,7 @@ public abstract class Hero {
    * @returns calculated threshold
    */
   protected int getThreshold() {
-    return (Constants.THRESHOLD_COMSTANT + this.level * Constants.THRESHOLD_COMSTANT_PER_LEVEL);
+    return (Constants.THRESHOLD_CONSTANT + this.level * Constants.THRESHOLD_CONSTANT_PER_LEVEL);
   }
   /*
    * Update the hero position according to the input move
@@ -143,14 +143,14 @@ public abstract class Hero {
    * @param overtime ability, overtime round range & terrain type
    */
   public void setOvertime(
-      final Ability overtimeAbility,
-      final int overtimeRoundStart,
-      final int overtimeRoundEnd,
-      final char terrainType) {
-    this.overtimeAbility = overtimeAbility;
-    this.overtimeRoundStart = overtimeRoundStart;
-    this.overtimeRoundEnd = overtimeRoundEnd;
-    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this, terrainType);
+      final Ability ability,
+      final int start,
+      final int end,
+      final char terrain) {
+    this.overtimeAbility = ability;
+    this.overtimeRoundStart = start;
+    this.overtimeRoundEnd = end;
+    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this, terrain);
   }
   /*
    * Deactivate or overtime ability

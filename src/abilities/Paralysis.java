@@ -29,7 +29,7 @@ public final class Paralysis extends Ability {
   public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     float terrainAmp = 1;
     if (terrainType == 'W') {
-      terrainAmp = 1.15f;
+      terrainAmp = Constants.PARALYSIS_OVERTIME_TERRAIN_AMP_WOOD;
     }
     float totalDamage =
         (this.damage + (this.damage * modifiers.get(enemyHero.getType()))) * terrainAmp;

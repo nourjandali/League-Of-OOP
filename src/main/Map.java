@@ -3,10 +3,10 @@ package main;
 public final class Map {
   private char[][] map;
 
-  public Map(final int N, final int M, final String[] mapLands) {
-    map = new char[N][M];
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
+  public Map(final int n, final int m, final String[] mapLands) {
+    map = new char[n][m];
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
         map[i][j] = mapLands[i].charAt(j);
       }
     }

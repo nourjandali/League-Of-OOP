@@ -3,7 +3,12 @@ package main;
 import abilities.Ignite;
 import abilities.Paralysis;
 import abilities.Slam;
-import heroes.*;
+import heroes.Hero;
+import heroes.HeroesType;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 import fileio.FileSystem;
 
 import java.io.IOException;
@@ -34,6 +39,7 @@ public final class Main {
         return 'K';
       case Wizard:
         return 'W';
+      default:
     }
     return 0;
   }
@@ -101,11 +107,14 @@ public final class Main {
             // Overtime abilities
             if (currentHero.getType() == HeroesType.Pyromancer) {
               enemyHero.setOvertime(
-                  new Ignite(currentHero.getLevel(), i), i + 1, i + 3, terrainType);
+                  new Ignite(currentHero.getLevel(), i),
+                  i + 1,
+                  i + Constants.IGNITE_OVERTIME_ROUNDS,
+                  terrainType);
             } else if (currentHero.getType() == HeroesType.Rogue) {
-              int noOfRounds = 3;
+              int noOfRounds = Constants.PARALYSIS_OVERTIME_ROUNDS;
               if (terrainType == 'W') {
-                noOfRounds = 6;
+                noOfRounds = Constants.PARALYSIS_OVERTIME_WOOD;
               }
               enemyHero.setOvertime(
                   new Paralysis(currentHero.getLevel()), i + 1, i + 1 + noOfRounds, terrainType);
