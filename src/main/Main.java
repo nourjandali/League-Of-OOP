@@ -1,5 +1,8 @@
 package main;
 
+import Abilities.Ignite;
+import Abilities.Paralysis;
+import Abilities.Slam;
 import Heroes.*;
 import fileio.FileSystem;
 
@@ -55,8 +58,14 @@ public final class Main {
     for (int i = 0; i < gameInput.getRoundCount(); i++) {
       // Perform heroes movements
       for (int j = 0; j < heroes.size(); j++) {
-//        heroes.get(j).updateOvertime(i);
-        heroes.get(j).updatePosition(gameInput.getHeroMovement(i, j));
+        Hero currentHero = heroes.get(j);
+        currentHero.updateOvertime(i);
+        if (currentHero.getHP() == 0) {
+          currentHero.setDead(true);
+        }
+        if(!currentHero.isSlammed()){
+          currentHero.updatePosition(gameInput.getHeroMovement(i, j));
+        }
       }
       // Calculate damage and perform heroes action
       for (int j = 0; j < heroes.size(); j++) {
@@ -77,11 +86,17 @@ public final class Main {
           if (isSamePosition(heroPosition, enemyPosition)) {
             int damageDone = currentHero.getTotalDamage(enemyHero, terrainType, i);
             enemyHero.takeDamage(damageDone);
-//            if (currentHero.getType() == HeroesType.Pyromancer) {
-//              enemyHero.setOvertime(new Ignite(currentHero.getLevel(), i), i + 2, currentHero);
-//            }else if(currentHero.getType() == HeroesType.Rogue){
-//              enemyHero.setOvertime(new Paralysis(currentHero.getLevel()), i + 3, currentHero);
-//            }
+            if (currentHero.getType() == HeroesType.Pyromancer) {
+              enemyHero.setOvertime(new Ignite(currentHero.getLevel(), i), i+1,i + 3, terrainType);
+            }else if(currentHero.getType() == HeroesType.Rogue){
+              int noOfRounds = 3;
+              if(terrainType == 'W'){
+                noOfRounds = 6;
+              }
+              enemyHero.setOvertime(new Paralysis(currentHero.getLevel()), i+1,i + 1 + noOfRounds, terrainType);
+            }else if(currentHero.getType() == HeroesType.Knight){
+              enemyHero.setOvertime(new Slam(currentHero.getLevel()), i+1,i + 2, terrainType);
+            }
             if (enemyHero.getHP() == 0) {
               currentHero.win(enemyHero.getLevel());
             }
@@ -94,9 +109,10 @@ public final class Main {
         // Check if dead
         if (currentHero.getHP() == 0) {
           currentHero.setDead(true);
+        }else {
+          // Level up hero if exceeded the threshold
+          heroes.get(j).levelUp();
         }
-        // Level up hero if exceeded the threshold
-        heroes.get(j).levelUp();
       }
     }
     FileSystem fs = gameLoader.getFs();

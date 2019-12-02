@@ -16,10 +16,9 @@ public class Pyromancer extends Hero {
   @Override
   public void levelUp() {
     if (this.XP > getThreshold()) {
-      this.level++;
-      this.XP -= getThreshold();
+      this.level = ( this.XP - 250 ) / 50 + 1;
       // Resetting HP
-      initHP += 50;
+      initHP += (50* this.level);
       this.HP = this.initHP;
     }
   }
@@ -28,11 +27,11 @@ public class Pyromancer extends Hero {
   public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float fireblastDamage =
-        abilitiesFactory
-            .createAbility("Fireblast", this.level, round, terrainType)
-            .execute(enemyHero);
+            abilitiesFactory
+                    .createAbility("Fireblast", this.level, round, terrainType)
+                    .execute(enemyHero);
     float igniteDamage =
-        abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute(enemyHero);
+            abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute(enemyHero);
     if (terrainType == 'V') {
       fireblastDamage *= 1.25;
       igniteDamage *= 1.25;
@@ -45,9 +44,9 @@ public class Pyromancer extends Hero {
   public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float fireblastDamage =
-        abilitiesFactory.createAbility("Fireblast", this.level, round, terrainType).execute();
+            abilitiesFactory.createAbility("Fireblast", this.level, round, terrainType).execute();
     float igniteDamage =
-        abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute();
+            abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute();
     if (terrainType == 'V') {
       fireblastDamage *= 1.25;
       igniteDamage *= 1.25;

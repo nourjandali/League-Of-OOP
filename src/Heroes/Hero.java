@@ -13,9 +13,11 @@ public abstract class Hero {
   protected HeroesType type;
   protected int[] position = new int[2];
   protected Ability overtimeAbility;
+  private int overtimeRoundStart;
   private int overtimeRoundEnd;
-  private Hero overtimeHero;
   private float overtimeDamage;
+  private boolean isParalyzed;
+  private boolean isSlammed;
 
   protected Hero(ArrayList<Integer> position) {
     this.XP = 0;
@@ -23,7 +25,10 @@ public abstract class Hero {
     this.position[0] = position.get(0);
     this.position[1] = position.get(1);
     this.isDead = false;
+    this.overtimeRoundStart = -1;
     this.overtimeRoundEnd = -1;
+    this.isParalyzed = false;
+    this.isSlammed = false;
   }
 
   public void win(int loserLevel) {
@@ -101,18 +106,43 @@ public abstract class Hero {
     return level;
   }
 
-  public void setOvertime(Ability overtimeAbility, int overtimeRoundEnd, Hero overtimeHero) {
+  public void setOvertime(Ability overtimeAbility, int overtimeRoundStart,int overtimeRoundEnd, char terrainType) {
     this.overtimeAbility = overtimeAbility;
+    this.overtimeRoundStart = overtimeRoundStart;
     this.overtimeRoundEnd = overtimeRoundEnd;
-    this.overtimeHero = overtimeHero;
-    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this);
+    this.overtimeDamage = overtimeAbility.executeOvertimeAbility(this, terrainType);
   }
 
   public void updateOvertime(int round) {
-    if (round > overtimeRoundEnd) {
+    if (round >= overtimeRoundEnd) {
       overtimeRoundEnd = -1;
+      overtimeRoundStart = -1;
+      overtimeAbility = null;
+      isParalyzed = false;
+      isSlammed = false;
     } else {
-      this.HP -= this.overtimeDamage;
+      this.takeDamage((long) this.overtimeDamage);
+
     }
+  }
+
+  public int getOvertimeRoundStart() {
+    return overtimeRoundStart;
+  }
+
+  public boolean isParalyzed() {
+    return isParalyzed;
+  }
+
+  public void setParalyzed(boolean paralyzed) {
+    isParalyzed = paralyzed;
+  }
+
+  public boolean isSlammed() {
+    return isSlammed;
+  }
+
+  public void setSlammed(boolean slammed) {
+    isSlammed = slammed;
   }
 }

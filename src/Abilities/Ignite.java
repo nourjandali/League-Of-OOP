@@ -5,9 +5,10 @@ import Heroes.HeroesType;
 
 public class Ignite extends Ability {
   float damage;
-
+  int overtimeLevel;
   public Ignite(int level, int round) {
     this.damage = 150 + (level * 20);
+    this.overtimeLevel = level;
     modifiers.put(HeroesType.Rogue, -0.2f);
     modifiers.put(HeroesType.Knight, 0.2f);
     modifiers.put(HeroesType.Pyromancer, -0.1f);
@@ -25,11 +26,11 @@ public class Ignite extends Ability {
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero) {
-//    float damage = 50 + (overtimeHero.getLevel()*30);
-//    float damageWithModifier = damage*modifiers.get(enemyHero.getType());
-//    long totalOvertimeDamage = (long) (damage + damageWithModifier);
-//    enemyHero.takeDamage(totalOvertimeDamage);
-    return 0;
+  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+    float terrainAmp = 1;
+    if(terrainType == 'V'){
+      terrainAmp = 1.25f;
+    }
+    return ((50 + (this.overtimeLevel * 30)) * (1 + modifiers.get(enemyHero.getType()))) * terrainAmp;
   }
 }

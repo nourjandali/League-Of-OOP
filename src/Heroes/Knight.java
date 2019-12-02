@@ -16,10 +16,9 @@ public class Knight extends Hero {
   @Override
   public void levelUp() {
     if (this.XP > getThreshold()) {
-      this.level++;
-      this.XP -= getThreshold();
+      this.level = ( this.XP - 250 ) / 50 + 1;
       // Resetting HP
-      initHP += 80;
+      initHP += (80* this.level);
       this.HP = this.initHP;
     }
   }
@@ -28,11 +27,11 @@ public class Knight extends Hero {
   public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float executeDamage =
-        abilitiesFactory
-            .createAbility("Execute", this.level, round, terrainType)
-            .execute(enemyHero);
+            abilitiesFactory
+                    .createAbility("Execute", this.level, round, terrainType)
+                    .execute(enemyHero);
     float slamDamage =
-        abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute(enemyHero);
+            abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute(enemyHero);
     if (terrainType == 'L') {
       executeDamage *= 1.15f;
       slamDamage *= 1.15f;
@@ -46,9 +45,9 @@ public class Knight extends Hero {
   public int getTotalDamageWithoutModifier(char terrainType, int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float executeDamage =
-        abilitiesFactory.createAbility("Execute", this.level, round, terrainType).execute();
+            abilitiesFactory.createAbility("Execute", this.level, round, terrainType).execute();
     float slamDamage =
-        abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute();
+            abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute();
     if (terrainType == 'L') {
       executeDamage *= 1.15f;
       slamDamage *= 1.15f;
