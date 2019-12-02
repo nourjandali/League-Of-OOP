@@ -1,11 +1,11 @@
-package Heroes;
+package heroes;
 
-import Abilities.AbilitiesFactory;
+import abilities.AbilitiesFactory;
 import java.util.ArrayList;
 
-public class Knight extends Hero {
+public final class Knight extends Hero {
 
-  public Knight(ArrayList<Integer> position) {
+  public Knight(final ArrayList<Integer> position) {
     super(position);
     this.initHP = 900;
     this.HP = this.initHP;
@@ -23,7 +23,7 @@ public class Knight extends Hero {
   }
 
   @Override
-  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(final Hero enemyHero, final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float executeDamage =
         abilitiesFactory
@@ -40,7 +40,7 @@ public class Knight extends Hero {
   }
 
   @Override
-  public int getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float executeDamage =
         abilitiesFactory.createAbility("Execute", this.level, round, terrainType).execute();

@@ -1,12 +1,12 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Backstab extends Ability {
-  float damage;
+public final class Backstab extends Ability {
+  private float damage;
 
-  public Backstab(int level) {
+  public Backstab(final int level) {
     this.damage = 200 + (level * 20);
     modifiers.put(HeroesType.Rogue, 0.2f);
     modifiers.put(HeroesType.Knight, -0.1f);
@@ -20,12 +20,12 @@ public class Backstab extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     return 0;
   }
 }

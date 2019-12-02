@@ -1,12 +1,12 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Execute extends Ability {
-  float damage;
+public final class Execute extends Ability {
+  private float damage;
 
-  public Execute(int level) {
+  public Execute(final int level) {
     this.damage = 200 + (level * 30);
     modifiers.put(HeroesType.Rogue, 0.15f);
     modifiers.put(HeroesType.Knight, 0.0f);
@@ -20,7 +20,7 @@ public class Execute extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
 
     float hpLimit = Math.min(0.2f + (0.01f * enemyHero.getLevel()), 0.4f);
     float hpPercentage = (float) enemyHero.getHP() / enemyHero.getInitHP();
@@ -32,7 +32,7 @@ public class Execute extends Ability {
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     // Execute does not have overtime
     return 0;
   }

@@ -1,13 +1,13 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Ignite extends Ability {
-  float damage;
-  int overtimeLevel;
+public final class Ignite extends Ability {
+  private float damage;
+  private int overtimeLevel;
 
-  public Ignite(int level, int round) {
+  public Ignite(final int level, final int round) {
     this.damage = 150 + (level * 20);
     this.overtimeLevel = level;
     modifiers.put(HeroesType.Rogue, -0.2f);
@@ -22,12 +22,12 @@ public class Ignite extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     float terrainAmp = 1;
     if (terrainType == 'V') {
       terrainAmp = 1.25f;

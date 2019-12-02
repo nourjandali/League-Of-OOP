@@ -1,12 +1,12 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Paralysis extends Ability {
-  float damage;
+public final class Paralysis extends Ability {
+  private float damage;
 
-  public Paralysis(int level) {
+  public Paralysis(final int level) {
     this.damage = 40 + (level * 10);
     modifiers.put(HeroesType.Rogue, -0.1f);
     modifiers.put(HeroesType.Knight, -0.2f);
@@ -20,12 +20,12 @@ public class Paralysis extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     float terrainAmp = 1;
     if (terrainType == 'W') {
       terrainAmp = 1.15f;

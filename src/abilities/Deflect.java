@@ -1,14 +1,14 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Deflect extends Ability {
-  char terrainType;
-  float percentage;
-  int round;
+public final class Deflect extends Ability {
+  private char terrainType;
+  private float percentage;
+  private int round;
 
-  public Deflect(int level, int round, char terrainType) {
+  public Deflect(final int level, final int round, final char terrainType) {
     this.percentage = Math.min(0.35f + (level * 0.02f), 0.7f);
     modifiers.put(HeroesType.Rogue, 0.2f);
     modifiers.put(HeroesType.Knight, 0.4f);
@@ -24,7 +24,7 @@ public class Deflect extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     // Two wizard heroes do not give each other
     if (enemyHero.getType() == HeroesType.Wizard) {
       return 0;
@@ -36,7 +36,7 @@ public class Deflect extends Ability {
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     // Deflect does not have overtime
     return 0;
   }

@@ -1,6 +1,6 @@
-package Heroes;
+package heroes;
 
-import Abilities.Ability;
+import abilities.Ability;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public abstract class Hero {
   private float overtimeDamage;
   private boolean isStunned;
 
-  protected Hero(ArrayList<Integer> position) {
+  protected Hero(final ArrayList<Integer> position) {
     this.XP = 0;
     this.level = 0;
     this.position[0] = position.get(0);
@@ -29,54 +29,54 @@ public abstract class Hero {
     this.isStunned = false;
   }
 
-  public void setDead(boolean dead) {
+  public final void setDead(final boolean dead) {
     isDead = dead;
   }
 
-  public boolean isDead() {
+  public final boolean isDead() {
     return isDead;
   }
 
-  public int[] getPosition() {
+  public final int[] getPosition() {
     return position;
   }
 
-  public HeroesType getType() {
+  public final HeroesType getType() {
     return type;
   }
 
-  public int getHP() {
+  public final int getHP() {
     return HP;
   }
 
-  public int getXP() {
+  public final int getXP() {
     return XP;
   }
 
-  public int getInitHP() {
+  public final int getInitHP() {
     return initHP;
   }
 
-  public int getLevel() {
+  public final int getLevel() {
     return level;
   }
 
-  public int getOvertimeRoundStart() {
+  public final int getOvertimeRoundStart() {
     return overtimeRoundStart;
   }
 
-  public boolean isStunned() {
+  public final boolean isStunned() {
     return isStunned;
   }
 
-  public void setStunned(boolean stunned) {
+  public final void setStunned(final boolean stunned) {
     isStunned = stunned;
   }
   /*
    * @param enemy hero level
    * @returns new calculated xp for the winner
    */
-  public void win(int loserLevel) {
+  public void win(final int loserLevel) {
     this.XP += Math.max(0, 200 - (this.level - loserLevel) * 40);
   }
   /*
@@ -93,7 +93,7 @@ public abstract class Hero {
    * Update the hero position according to the input move
    * @param movement character
    */
-  public void updatePosition(char move) {
+  public void updatePosition(final char move) {
     switch (move) {
       case 'U':
         position[0]--;
@@ -125,7 +125,7 @@ public abstract class Hero {
    * Apply the damage done by enemy hero
    * @param damage done by enemy hero
    */
-  public void takeDamage(long damage) {
+  public void takeDamage(final long damage) {
     int currentHP = this.HP;
     currentHP -= damage;
     if (currentHP < 0) {
@@ -139,7 +139,10 @@ public abstract class Hero {
    * @param overtime ability, overtime round range & terrain type
    */
   public void setOvertime(
-      Ability overtimeAbility, int overtimeRoundStart, int overtimeRoundEnd, char terrainType) {
+          final Ability overtimeAbility,
+          final int overtimeRoundStart,
+          final int overtimeRoundEnd,
+          final char terrainType) {
     this.overtimeAbility = overtimeAbility;
     this.overtimeRoundStart = overtimeRoundStart;
     this.overtimeRoundEnd = overtimeRoundEnd;
@@ -149,7 +152,7 @@ public abstract class Hero {
    * Deactivate or overtime ability
    * @param round number
    */
-  public void updateOvertime(int round) {
+  public void updateOvertime(final int round) {
     if (round >= overtimeRoundEnd) {
       overtimeRoundEnd = -1;
       overtimeRoundStart = -1;

@@ -1,12 +1,12 @@
-package Heroes;
+package heroes;
 
-import Abilities.AbilitiesFactory;
+import abilities.AbilitiesFactory;
 
 import java.util.ArrayList;
 
-public class Pyromancer extends Hero {
+public final class Pyromancer extends Hero {
 
-  public Pyromancer(ArrayList<Integer> position) {
+  public Pyromancer(final ArrayList<Integer> position) {
     super(position);
     this.initHP = 500;
     this.HP = this.initHP;
@@ -24,7 +24,7 @@ public class Pyromancer extends Hero {
   }
 
   @Override
-  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(final Hero enemyHero, final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float fireblastDamage =
         abilitiesFactory
@@ -41,7 +41,7 @@ public class Pyromancer extends Hero {
   }
 
   @Override
-  public int getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float fireblastDamage =
         abilitiesFactory.createAbility("Fireblast", this.level, round, terrainType).execute();

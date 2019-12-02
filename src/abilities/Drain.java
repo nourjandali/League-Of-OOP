@@ -1,12 +1,12 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Drain extends Ability {
-  float percentage;
+public final class Drain extends Ability {
+  private float percentage;
 
-  public Drain(int level) {
+  public Drain(final int level) {
     this.percentage = 0.2f + (level * 0.05f);
     modifiers.put(HeroesType.Rogue, -0.2f);
     modifiers.put(HeroesType.Knight, 0.2f);
@@ -20,7 +20,7 @@ public class Drain extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     float basicHP = Math.min(0.3f * enemyHero.getInitHP(), enemyHero.getHP());
     float totalPercentage =
         this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
@@ -28,7 +28,7 @@ public class Drain extends Ability {
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     // Drain does not have overtime
     return 0;
   }

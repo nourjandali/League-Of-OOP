@@ -1,12 +1,12 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Fireblast extends Ability {
-  float damage;
+public final class Fireblast extends Ability {
+  private float damage;
 
-  public Fireblast(int level) {
+  public Fireblast(final int level) {
     this.damage = 350 + (level * 50);
     modifiers.put(HeroesType.Rogue, -0.2f);
     modifiers.put(HeroesType.Knight, 0.2f);
@@ -20,12 +20,12 @@ public class Fireblast extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     // Fireblast does not have overtime
     return 0;
   }

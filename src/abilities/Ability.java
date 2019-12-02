@@ -1,7 +1,7 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 import java.util.HashMap;
 
 public abstract class Ability {

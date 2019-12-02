@@ -1,6 +1,6 @@
 package main;
 
-public class Map {
+public final class Map {
   private char[][] map;
 
   public Map(final int N, final int M, final String[] mapLands) {

@@ -1,4 +1,4 @@
-package Abilities;
+package abilities;
 
 public final class AbilitiesFactory {
   private static AbilitiesFactory instance = null;
@@ -10,7 +10,9 @@ public final class AbilitiesFactory {
     return instance;
   }
   // Used to create any chosen ability
-  public Ability createAbility(final String type, final int level, final int round, char terrainType) {
+  public Ability createAbility(
+    final String type, final int level,
+    final int round, final char terrainType) {
     switch (type) {
       case "Fireblast":
         return new Fireblast(level);

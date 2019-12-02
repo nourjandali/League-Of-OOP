@@ -1,9 +1,9 @@
 package main;
 
-import Abilities.Ignite;
-import Abilities.Paralysis;
-import Abilities.Slam;
-import Heroes.*;
+import abilities.Ignite;
+import abilities.Paralysis;
+import abilities.Slam;
+import heroes.*;
 import fileio.FileSystem;
 
 import java.io.IOException;
@@ -17,14 +17,14 @@ public final class Main {
    * @param 2 heroes positions
    * @returns indicator for same position
    */
-  private static boolean isSamePosition(int[] pos1, int[] pos2) {
+  private static boolean isSamePosition(final int[] pos1, final int[] pos2) {
     return pos1[0] == pos2[0] && pos1[1] == pos2[1];
   }
   /*
    * @param hero type
    * @returns the character who represents the hero type
    */
-  private static char getTypeChar(HeroesType type) {
+  private static char getTypeChar(final HeroesType type) {
     switch (type) {
       case Pyromancer:
         return 'P';

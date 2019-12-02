@@ -1,14 +1,14 @@
-package Heroes;
+package heroes;
 
-import Abilities.AbilitiesFactory;
+import abilities.AbilitiesFactory;
 
 import java.util.ArrayList;
 
-public class Rogue extends Hero {
+public final class Rogue extends Hero {
   int backstabCount;
   int backstabCountOvertime;
 
-  public Rogue(ArrayList<Integer> position) {
+  public Rogue(final ArrayList<Integer> position) {
     super(position);
     this.initHP = 600;
     this.HP = this.initHP;
@@ -28,7 +28,7 @@ public class Rogue extends Hero {
   }
 
   @Override
-  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(final Hero enemyHero, final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float backstabDamage =
         abilitiesFactory
@@ -51,7 +51,7 @@ public class Rogue extends Hero {
   }
 
   @Override
-  public int getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float backstabDamage =
         abilitiesFactory.createAbility("Backstab", this.level, round, terrainType).execute();

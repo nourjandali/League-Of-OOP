@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GameInput {
+public final class GameInput {
   private final int N;
   private final int M;
   private final String[] mapLands;
@@ -48,11 +48,11 @@ public class GameInput {
     return heroesTypes;
   }
 
-  public ArrayList<Integer> getHeroPosition(int index) {
+  public ArrayList<Integer> getHeroPosition(final int index) {
     return heroesPosition.get(index);
   }
 
-  public char getHeroMovement(int round, int heroIndex) {
+  public char getHeroMovement(final int round, final int heroIndex) {
     return heroesMovement.get(round).charAt(heroIndex);
   }
 

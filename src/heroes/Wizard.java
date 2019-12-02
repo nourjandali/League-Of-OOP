@@ -1,11 +1,11 @@
-package Heroes;
+package heroes;
 
-import Abilities.AbilitiesFactory;
+import abilities.AbilitiesFactory;
 
 import java.util.ArrayList;
 
-public class Wizard extends Hero {
-  public Wizard(ArrayList<Integer> position) {
+public final class Wizard extends Hero {
+  public Wizard(final ArrayList<Integer> position) {
     super(position);
     this.initHP = 400;
     this.HP = this.initHP;
@@ -23,7 +23,7 @@ public class Wizard extends Hero {
   }
 
   @Override
-  public int getTotalDamage(Hero enemyHero, char terrainType, int round) {
+  public int getTotalDamage(final Hero enemyHero, final char terrainType, final int round) {
     AbilitiesFactory abilitiesFactory = AbilitiesFactory.getInstance();
     float drainDamage =
         abilitiesFactory.createAbility("Drain", this.level, round, terrainType).execute(enemyHero);
@@ -40,7 +40,7 @@ public class Wizard extends Hero {
   }
 
   @Override
-  public int getTotalDamageWithoutModifier(char terrainType, int round) {
+  public int getTotalDamageWithoutModifier(final char terrainType, final int round) {
     return 0;
   }
 }

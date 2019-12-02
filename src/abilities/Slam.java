@@ -1,12 +1,12 @@
-package Abilities;
+package abilities;
 
-import Heroes.Hero;
-import Heroes.HeroesType;
+import heroes.Hero;
+import heroes.HeroesType;
 
-public class Slam extends Ability {
-  float damage;
+public final class Slam extends Ability {
+  private float damage;
 
-  public Slam(int level) {
+  public Slam(final int level) {
     this.damage = 100 + (level * 40);
     modifiers.put(HeroesType.Rogue, -0.2f);
     modifiers.put(HeroesType.Knight, 0.2f);
@@ -20,12 +20,12 @@ public class Slam extends Ability {
   }
 
   @Override
-  public float execute(Hero enemyHero) {
+  public float execute(final Hero enemyHero) {
     return this.damage + (this.damage * modifiers.get(enemyHero.getType()));
   }
 
   @Override
-  public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
+  public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
     enemyHero.setStunned(true);
     return 0;
   }
