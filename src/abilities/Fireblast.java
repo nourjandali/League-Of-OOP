@@ -2,16 +2,17 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Fireblast extends Ability {
   private float damage;
 
   public Fireblast(final int level) {
-    this.damage = 350 + (level * 50);
-    modifiers.put(HeroesType.Rogue, -0.2f);
-    modifiers.put(HeroesType.Knight, 0.2f);
-    modifiers.put(HeroesType.Pyromancer, -0.1f);
-    modifiers.put(HeroesType.Wizard, 0.05f);
+    this.damage = Constants.FIREBLAST_DAMAGE + (level * Constants.FIREBLAST_DAMAGE_PER_LEVEL);
+    modifiers.put(HeroesType.Rogue, Constants.FIREBLAST_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.FIREBLAST_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.FIREBLAST_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.FIREBLAST_WIZARD);
   }
 
   @Override

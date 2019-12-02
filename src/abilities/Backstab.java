@@ -2,16 +2,18 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Backstab extends Ability {
   private float damage;
 
   public Backstab(final int level) {
-    this.damage = 200 + (level * 20);
-    modifiers.put(HeroesType.Rogue, 0.2f);
-    modifiers.put(HeroesType.Knight, -0.1f);
-    modifiers.put(HeroesType.Pyromancer, 0.25f);
-    modifiers.put(HeroesType.Wizard, 0.25f);
+    this.damage = Constants.BACKSTAB_DAMAGE
+            + (level * Constants.BACKSTAB_DAMAGE_PER_LEVEL);
+    modifiers.put(HeroesType.Rogue, Constants.BACKSTAB_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.BACKSTAB_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.BACKSTAB_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.BACKSTAB_WIZARD);
   }
 
   @Override

@@ -2,16 +2,17 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Drain extends Ability {
   private float percentage;
 
   public Drain(final int level) {
-    this.percentage = 0.2f + (level * 0.05f);
-    modifiers.put(HeroesType.Rogue, -0.2f);
-    modifiers.put(HeroesType.Knight, 0.2f);
-    modifiers.put(HeroesType.Pyromancer, -0.1f);
-    modifiers.put(HeroesType.Wizard, 0.05f);
+    this.percentage = Constants.DRAIN_PERC + (level * Constants.DRAIN_PERC_PER_LEVEL);
+    modifiers.put(HeroesType.Rogue, Constants.DRAIN_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.DRAIN_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.DRAIN_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.DRAIN_WIZARD);
   }
 
   @Override
@@ -21,7 +22,7 @@ public final class Drain extends Ability {
 
   @Override
   public float execute(final Hero enemyHero) {
-    float basicHP = Math.min(0.3f * enemyHero.getInitHP(), enemyHero.getHP());
+    float basicHP = Math.min(Constants.DRAIN_BASIC_HP * enemyHero.getInitHP(), enemyHero.getHP());
     float totalPercentage =
         this.percentage + (this.percentage * modifiers.get(enemyHero.getType()));
     return (basicHP * totalPercentage);

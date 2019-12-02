@@ -1,6 +1,7 @@
 package heroes;
 
 import abilities.AbilitiesFactory;
+import main.Constants;
 
 import java.util.ArrayList;
 
@@ -8,18 +9,18 @@ public final class Pyromancer extends Hero {
 
   public Pyromancer(final ArrayList<Integer> position) {
     super(position);
-    this.initHP = 500;
-    this.HP = this.initHP;
+    this.initHP = Constants.PYROMANCER_INIT_HP;
+    this.hp = this.initHP;
     type = HeroesType.Pyromancer;
   }
 
   @Override
   public void levelUp() {
-    if (this.XP > getThreshold()) {
-      this.level = (this.XP - 250) / 50 + 1;
-      // Resetting HP
-      initHP += (50 * this.level);
-      this.HP = this.initHP;
+    if (this.xp > getThreshold()) {
+      this.level = (this.xp - Constants.XP_LEVEL_UP_CONST_1) / Constants.XP_LEVEL_UP_CONST_2 + 1;
+      // Resetting hp
+      initHP += (Constants.PYROMANCER_HP_PER_LEVEL * this.level);
+      this.hp = this.initHP;
     }
   }
 
@@ -33,8 +34,8 @@ public final class Pyromancer extends Hero {
     float igniteDamage =
         abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute(enemyHero);
     if (terrainType == 'V') {
-      fireblastDamage *= 1.25;
-      igniteDamage *= 1.25;
+      fireblastDamage *= Constants.PYROMANCER_FIREBLAST_DMG;
+      igniteDamage *= Constants.PYROMANCER_IGNITE_DMG;
     }
     int totalDamage = Math.round(fireblastDamage) + Math.round(igniteDamage);
     return totalDamage;
@@ -48,8 +49,8 @@ public final class Pyromancer extends Hero {
     float igniteDamage =
         abilitiesFactory.createAbility("Ignite", this.level, round, terrainType).execute();
     if (terrainType == 'V') {
-      fireblastDamage *= 1.25;
-      igniteDamage *= 1.25;
+      fireblastDamage *= Constants.PYROMANCER_OVERTIME_FIREBLAST_DMG;
+      igniteDamage *= Constants.PYROMANCER_OVERTIME_IGNITE_DMG;
     }
     int totalDamage = Math.round(fireblastDamage) + Math.round(igniteDamage);
     return totalDamage;

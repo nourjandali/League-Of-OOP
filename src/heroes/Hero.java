@@ -1,13 +1,14 @@
 package heroes;
 
 import abilities.Ability;
+import main.Constants;
 
 import java.util.ArrayList;
 
 public abstract class Hero {
   protected int initHP;
-  protected int HP;
-  protected int XP;
+  protected int hp;
+  protected int xp;
   protected int level;
   private boolean isDead;
   protected HeroesType type;
@@ -19,7 +20,7 @@ public abstract class Hero {
   private boolean isStunned;
 
   protected Hero(final ArrayList<Integer> position) {
-    this.XP = 0;
+    this.xp = 0;
     this.level = 0;
     this.position[0] = position.get(0);
     this.position[1] = position.get(1);
@@ -46,11 +47,11 @@ public abstract class Hero {
   }
 
   public final int getHP() {
-    return HP;
+    return hp;
   }
 
   public final int getXP() {
-    return XP;
+    return xp;
   }
 
   public final int getInitHP() {
@@ -77,7 +78,10 @@ public abstract class Hero {
    * @returns new calculated xp for the winner
    */
   public void win(final int loserLevel) {
-    this.XP += Math.max(0, 200 - (this.level - loserLevel) * 40);
+    this.xp +=
+        Math.max(
+            0,
+            Constants.WIN_CONSTANT - (this.level - loserLevel) * Constants.WIN_CONSTANT_PER_LEVEL);
   }
   /*
    * @returns if exceeds the threshold, hero will level up
@@ -87,7 +91,7 @@ public abstract class Hero {
    * @returns calculated threshold
    */
   protected int getThreshold() {
-    return (250 + this.level * 50);
+    return (Constants.THRESHOLD_COMSTANT + this.level * Constants.THRESHOLD_COMSTANT_PER_LEVEL);
   }
   /*
    * Update the hero position according to the input move
@@ -126,12 +130,12 @@ public abstract class Hero {
    * @param damage done by enemy hero
    */
   public void takeDamage(final long damage) {
-    int currentHP = this.HP;
+    int currentHP = this.hp;
     currentHP -= damage;
     if (currentHP < 0) {
-      this.HP = 0;
+      this.hp = 0;
     } else {
-      this.HP = currentHP;
+      this.hp = currentHP;
     }
   }
   /*
@@ -139,10 +143,10 @@ public abstract class Hero {
    * @param overtime ability, overtime round range & terrain type
    */
   public void setOvertime(
-          final Ability overtimeAbility,
-          final int overtimeRoundStart,
-          final int overtimeRoundEnd,
-          final char terrainType) {
+      final Ability overtimeAbility,
+      final int overtimeRoundStart,
+      final int overtimeRoundEnd,
+      final char terrainType) {
     this.overtimeAbility = overtimeAbility;
     this.overtimeRoundStart = overtimeRoundStart;
     this.overtimeRoundEnd = overtimeRoundEnd;

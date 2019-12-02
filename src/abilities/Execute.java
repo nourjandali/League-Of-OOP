@@ -2,16 +2,17 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Execute extends Ability {
   private float damage;
 
   public Execute(final int level) {
-    this.damage = 200 + (level * 30);
-    modifiers.put(HeroesType.Rogue, 0.15f);
-    modifiers.put(HeroesType.Knight, 0.0f);
-    modifiers.put(HeroesType.Pyromancer, 0.1f);
-    modifiers.put(HeroesType.Wizard, -0.2f);
+    this.damage = Constants.EXECUTE_DAMAGE + (level * Constants.EXECUTE_DAMAGE_PER_LEVEL);
+    modifiers.put(HeroesType.Rogue, Constants.EXECUTE_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.EXECUTE_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.EXECUTE_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.EXECUTE_WIZARD);
   }
 
   @Override
@@ -22,7 +23,11 @@ public final class Execute extends Ability {
   @Override
   public float execute(final Hero enemyHero) {
 
-    float hpLimit = Math.min(0.2f + (0.01f * enemyHero.getLevel()), 0.4f);
+    float hpLimit =
+        Math.min(
+            Constants.EXECUTE_HP_LIMIT_CONSTANT
+                + (Constants.EXECUTE_HP_LIMIT_CONSTANT_PER_LEVEL * enemyHero.getLevel()),
+            Constants.EXECUTE_HP_LIMIT_CONSTANT_MAX);
     float hpPercentage = (float) enemyHero.getHP() / enemyHero.getInitHP();
     if (hpPercentage < hpLimit) {
       // Enemy take damage with all its health to die

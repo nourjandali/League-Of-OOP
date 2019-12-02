@@ -8,17 +8,17 @@ public final class Wizard extends Hero {
   public Wizard(final ArrayList<Integer> position) {
     super(position);
     this.initHP = 400;
-    this.HP = this.initHP;
+    this.hp = this.initHP;
     type = HeroesType.Wizard;
   }
 
   @Override
   public void levelUp() {
-    if (this.XP > getThreshold()) {
-      this.level = (this.XP - 250) / 50 + 1;
-      // Resetting HP
+    if (this.xp > getThreshold()) {
+      this.level = (this.xp - 250) / 50 + 1;
+      // Resetting hp
       initHP += (30 * this.level);
-      this.HP = this.initHP;
+      this.hp = this.initHP;
     }
   }
 

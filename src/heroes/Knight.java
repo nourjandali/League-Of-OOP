@@ -1,24 +1,27 @@
 package heroes;
 
 import abilities.AbilitiesFactory;
+import main.Constants;
+
 import java.util.ArrayList;
 
 public final class Knight extends Hero {
 
   public Knight(final ArrayList<Integer> position) {
     super(position);
-    this.initHP = 900;
-    this.HP = this.initHP;
+    this.initHP = Constants.KNIGHT_INIT_HP;
+    this.hp = this.initHP;
     type = HeroesType.Knight;
   }
 
   @Override
   public void levelUp() {
-    if (this.XP > getThreshold()) {
-      this.level = (this.XP - 250) / 50 + 1;
-      // Resetting HP
-      initHP += (80 * this.level);
-      this.HP = this.initHP;
+    if (this.xp > getThreshold()) {
+      this.level = (this.xp - Constants.XP_LEVEL_UP_CONST_1)
+              / Constants.XP_LEVEL_UP_CONST_2 + 1;
+      // Resetting hp
+      initHP += (Constants.KNIGHT_HP_PER_LEVEL * this.level);
+      this.hp = this.initHP;
     }
   }
 
@@ -32,8 +35,8 @@ public final class Knight extends Hero {
     float slamDamage =
         abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute(enemyHero);
     if (terrainType == 'L') {
-      executeDamage *= 1.15f;
-      slamDamage *= 1.15f;
+      executeDamage *= Constants.KNIGHT_EXECUTE_DMG;
+      slamDamage *= Constants.KNIGHT_EXECUTE_DMG;
     }
     int totalDamage = Math.round(executeDamage) + Math.round(slamDamage);
     return totalDamage;
@@ -47,8 +50,8 @@ public final class Knight extends Hero {
     float slamDamage =
         abilitiesFactory.createAbility("Slam", this.level, round, terrainType).execute();
     if (terrainType == 'L') {
-      executeDamage *= 1.15f;
-      slamDamage *= 1.15f;
+      executeDamage *= Constants.KNIGHT_OVERTIME_EXECUTE_DMG;
+      slamDamage *= Constants.KNIGHT_OVERTIME_SLAM_DMG;
     }
     int totalDamage = Math.round(executeDamage) + Math.round(slamDamage);
     return totalDamage;

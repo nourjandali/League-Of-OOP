@@ -2,6 +2,7 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Deflect extends Ability {
   private char terrainType;
@@ -9,11 +10,14 @@ public final class Deflect extends Ability {
   private int round;
 
   public Deflect(final int level, final int round, final char terrainType) {
-    this.percentage = Math.min(0.35f + (level * 0.02f), 0.7f);
-    modifiers.put(HeroesType.Rogue, 0.2f);
-    modifiers.put(HeroesType.Knight, 0.4f);
-    modifiers.put(HeroesType.Pyromancer, 0.3f);
-    modifiers.put(HeroesType.Wizard, 0.0f);
+    this.percentage =
+        Math.min(
+            Constants.DEFLECT_PERC + (level * Constants.DEFLECT_PERC_PER_LEVEL),
+            Constants.DEFLECT_PERC_MAX);
+    modifiers.put(HeroesType.Rogue, Constants.DEFLECT_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.DEFLECT_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.DEFLECT_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.DEFLECT_WIZARD);
     this.terrainType = terrainType;
     this.round = round;
   }
@@ -32,7 +36,9 @@ public final class Deflect extends Ability {
 
     // Apply deflect ability other heroes
     float deflectedDamage = enemyHero.getTotalDamageWithoutModifier(this.terrainType, this.round);
-    return (this.percentage * deflectedDamage * (1.0f + modifiers.get(enemyHero.getType())));
+    return (this.percentage
+        * deflectedDamage
+        * (Constants.ONE + modifiers.get(enemyHero.getType())));
   }
 
   @Override

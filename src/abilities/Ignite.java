@@ -2,18 +2,19 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Ignite extends Ability {
   private float damage;
   private int overtimeLevel;
 
   public Ignite(final int level, final int round) {
-    this.damage = 150 + (level * 20);
+    this.damage = Constants.IGNITE_DAMAGE + (level * Constants.IGNITE_DAMAGE_PER_LEVEL);
     this.overtimeLevel = level;
-    modifiers.put(HeroesType.Rogue, -0.2f);
-    modifiers.put(HeroesType.Knight, 0.2f);
-    modifiers.put(HeroesType.Pyromancer, -0.1f);
-    modifiers.put(HeroesType.Wizard, 0.05f);
+    modifiers.put(HeroesType.Rogue, Constants.IGNITE_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.IGNITE_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.IGNITE_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.IGNITE_WIZARD);
   }
 
   @Override
@@ -28,11 +29,13 @@ public final class Ignite extends Ability {
 
   @Override
   public float executeOvertimeAbility(final Hero enemyHero, final char terrainType) {
-    float terrainAmp = 1;
+    float terrainAmp = Constants.IGNITE_OVERTIME_TERRAIN_AMP;
     if (terrainType == 'V') {
-      terrainAmp = 1.25f;
+      terrainAmp = Constants.IGNITE_OVERTIME_TERRAIN_AMP_VOLCANIC;
     }
-    return ((50 + (this.overtimeLevel * 30)) * (1 + modifiers.get(enemyHero.getType())))
+    return ((Constants.IGNITE_OVERTIME_DAMAGE
+                + (this.overtimeLevel * Constants.IGNITE_OVERTIME_DAMAGE_PER_LEVEL))
+            * (1 + modifiers.get(enemyHero.getType())))
         * terrainAmp;
   }
 }

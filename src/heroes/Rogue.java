@@ -1,6 +1,7 @@
 package heroes;
 
 import abilities.AbilitiesFactory;
+import main.Constants;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,8 @@ public final class Rogue extends Hero {
 
   public Rogue(final ArrayList<Integer> position) {
     super(position);
-    this.initHP = 600;
-    this.HP = this.initHP;
+    this.initHP = Constants.ROGUE_INIT_HP;
+    this.hp = this.initHP;
     type = HeroesType.Rogue;
     this.backstabCount = 0;
     this.backstabCountOvertime = 0;
@@ -19,11 +20,11 @@ public final class Rogue extends Hero {
 
   @Override
   public void levelUp() {
-    if (this.XP > getThreshold()) {
-      this.level = (this.XP - 250) / 50 + 1;
-      // Resetting HP
-      initHP += (40 * this.level);
-      this.HP = this.initHP;
+    if (this.xp > getThreshold()) {
+      this.level = (this.xp - Constants.XP_LEVEL_UP_CONST_1) / Constants.XP_LEVEL_UP_CONST_2 + 1;
+      // Resetting hp
+      initHP += (Constants.ROGUE_HP_PER_LEVEL * this.level);
+      this.hp = this.initHP;
     }
   }
 
@@ -39,11 +40,11 @@ public final class Rogue extends Hero {
             .createAbility("Paralysis", this.level, round, terrainType)
             .execute(enemyHero);
     if (backstabCount % 3 == 0 && terrainType == 'W') {
-      backstabDamage *= 1.5f;
+      backstabDamage *= Constants.ROGUE_BACKSTAB_CRITICAL_HIT;
     }
     if (terrainType == 'W') {
-      backstabDamage *= 1.15f;
-      paralysisDamage *= 1.15f;
+      backstabDamage *= Constants.ROGUE_BACKSTAB_DMG;
+      paralysisDamage *= Constants.ROGUE_PARALYSIS_DMG;
     }
     int totalDamage = Math.round(backstabDamage) + Math.round(paralysisDamage);
     backstabCount++;
@@ -58,11 +59,11 @@ public final class Rogue extends Hero {
     float paralysisDamage =
         abilitiesFactory.createAbility("Paralysis", this.level, round, terrainType).execute();
     if (backstabCountOvertime % 3 == 0 && terrainType == 'W') {
-      backstabDamage *= 1.5f;
+      backstabDamage *= Constants.ROGUE_OVERTIME_BACKSTAB_CRITICAL_HIT;
     }
     if (terrainType == 'W') {
-      backstabDamage *= 1.15f;
-      paralysisDamage *= 1.15f;
+      backstabDamage *= Constants.ROGUE_OVERTIME_BACKSTAB_DMG;
+      paralysisDamage *= Constants.ROGUE_OVERTIME_PARALYSIS_DMG;
     }
     int totalDamage = Math.round(backstabDamage) + Math.round(paralysisDamage);
     backstabCountOvertime++;

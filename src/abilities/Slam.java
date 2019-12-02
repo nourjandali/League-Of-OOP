@@ -2,16 +2,17 @@ package abilities;
 
 import heroes.Hero;
 import heroes.HeroesType;
+import main.Constants;
 
 public final class Slam extends Ability {
   private float damage;
 
   public Slam(final int level) {
-    this.damage = 100 + (level * 40);
-    modifiers.put(HeroesType.Rogue, -0.2f);
-    modifiers.put(HeroesType.Knight, 0.2f);
-    modifiers.put(HeroesType.Pyromancer, -0.1f);
-    modifiers.put(HeroesType.Wizard, 0.05f);
+    this.damage = Constants.SLAM_DAMAGE + (level * Constants.SLAM_DAMAGE_PER_LEVEL);
+    modifiers.put(HeroesType.Rogue, Constants.SLAM_ROGUE);
+    modifiers.put(HeroesType.Knight, Constants.SLAM_KNIGHT);
+    modifiers.put(HeroesType.Pyromancer, Constants.SLAM_PYROMANCER);
+    modifiers.put(HeroesType.Wizard, Constants.SLAM_WIZARD);
   }
 
   @Override
