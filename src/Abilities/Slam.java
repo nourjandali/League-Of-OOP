@@ -26,7 +26,7 @@ public class Slam extends Ability {
 
   @Override
   public float executeOvertimeAbility(Hero enemyHero, char terrainType) {
-    enemyHero.setSlammed(true);
+    enemyHero.setStunned(true);
     return 0;
   }
 }

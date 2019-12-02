@@ -16,8 +16,7 @@ public abstract class Hero {
   private int overtimeRoundStart;
   private int overtimeRoundEnd;
   private float overtimeDamage;
-  private boolean isParalyzed;
-  private boolean isSlammed;
+  private boolean isStunned;
 
   protected Hero(ArrayList<Integer> position) {
     this.XP = 0;
@@ -27,8 +26,7 @@ public abstract class Hero {
     this.isDead = false;
     this.overtimeRoundStart = -1;
     this.overtimeRoundEnd = -1;
-    this.isParalyzed = false;
-    this.isSlammed = false;
+    this.isStunned = false;
   }
 
   public void setDead(boolean dead) {
@@ -67,20 +65,12 @@ public abstract class Hero {
     return overtimeRoundStart;
   }
 
-  public boolean isParalyzed() {
-    return isParalyzed;
+  public boolean isStunned() {
+    return isStunned;
   }
 
-  public void setParalyzed(boolean paralyzed) {
-    isParalyzed = paralyzed;
-  }
-
-  public boolean isSlammed() {
-    return isSlammed;
-  }
-
-  public void setSlammed(boolean slammed) {
-    isSlammed = slammed;
+  public void setStunned(boolean stunned) {
+    isStunned = stunned;
   }
   /*
    * @param enemy hero level
@@ -164,8 +154,7 @@ public abstract class Hero {
       overtimeRoundEnd = -1;
       overtimeRoundStart = -1;
       overtimeAbility = null;
-      isParalyzed = false;
-      isSlammed = false;
+      isStunned = false;
     } else {
       this.takeDamage((long) this.overtimeDamage);
     }

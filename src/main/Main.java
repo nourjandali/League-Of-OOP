@@ -74,7 +74,7 @@ public final class Main {
         if (currentHero.getHP() == 0) {
           currentHero.setDead(true);
         }
-        if (!currentHero.isSlammed()) {
+        if (!currentHero.isStunned()) {
           currentHero.updatePosition(gameInput.getHeroMovement(i, j));
         }
       }

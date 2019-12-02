@@ -32,7 +32,7 @@ public class Paralysis extends Ability {
     }
     float totalDamage =
         (this.damage + (this.damage * modifiers.get(enemyHero.getType()))) * terrainAmp;
-    enemyHero.setSlammed(true);
+    enemyHero.setStunned(true);
     return Math.round(totalDamage);
   }
 }
