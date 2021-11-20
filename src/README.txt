@@ -1,7 +1,7 @@
 Reading and wrtiting from input file:
     * GameLoader Class
         For reading and writing to input and output files respectively.
-        The class reads the Map dimenstions and then store each row
+        The class reads the Map dimensions and then store each row
         to an array list which is used later to separte each land.
         I store hero types in array list as well as heroMovement which
         are later processed to each hero.
